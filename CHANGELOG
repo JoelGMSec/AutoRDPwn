@@ -1,0 +1,78 @@
+# Versión 4.5
+• Nuevo icono estilo ninja!
+• Limpieza automática del historial de Powershell tras la ejecución
+• Ahora todas las dependencias se descargan del mismo repositorio
+• Muchos errores y bugs corregidos
+• Bypass de UAC & AMSI en sistemas de 64 bits
+• Nuevo módulo disponible: Remote Desktop Forensics
+• Nuevo módulo disponible: Desactivar logs del sistema (Invoke-Phant0m)
+• Nuevo módulo disponible: Sticky Keys Hacking
+• Nuevo ataque disponible: Session Hijacking (sin contraseña)
+**ATENCIÓN!** Este ataque es muy intrusivo y solo puede utilizarse localmente
+
+
+# Versión 4.2
+• Nuevo módulo disponible para Mimikatz: Recuperar contraseñas en texto plano
+• La carpeta RDP Wrapper ahora estará oculta (attrib +h)
+
+
+# Versión 4.0
+• Resuelto un bug en la tarea programada para eliminar el usuario AutoRDPwn
+• El ataque Scheluded Task ha sido reemplazado por Invoke-Command
+• Ahora es posible elegir el idioma de la aplicación y lanzar el ataque a versiones inglesas de Windows
+
+
+# Versión 3.7
+• Auto-detección de la versión de Powershell instalada
+• El usuario "AutoRDPwn" se elimina automáticamente 2 horas después de realizar el ataque
+
+
+# Versión 3.5
+• El ataque Pass The Hash pasa a ser estable
+• Nueva funcionalidad - Cargar módulos adicionales
+• Nuevo módulo adicional - Mimikatz
+• Nuevo módulo adicional - Consola semi-interactiva
+
+
+# Versión 3.3
+• Corrección de errores
+• Nuevas reglas de firewall
+• Añadidos más cambios en el registro de Windows
+
+
+# Versión 3.1
+• Nuevo tipo de ataque disponible - Windows Remote Assistance
+• Optimización de código
+• Cambios en menús y nuevo banner
+
+
+# Versión 3.0
+• Autodestrucción del script tras su ejecución
+• Modo de depuración deshabilitado
+• Nuevo tipo de ataque disponible: Pass The Hash (Beta)
+• Resolución de nombre de host remoto
+• Corrección de errores
+• Mejoras de código
+
+
+# Versión 2.8
+• Eliminada la opción de elegir la arquitectura del sistema remoto
+
+
+# Versión 2.6
+• Correción de errores
+• Auto-detección de Id de sesión
+
+
+# Versión 2.4
+• Nuevo tipo de ataque disponible: ScheduleTask
+
+
+# Versión 2.2
+• Mejoras y cambios de código
+• Añadida la opción de visualizar o controlar el equipo remoto
+• Eliminados popups y mensajes innecesarios
+
+
+# Versión 2.0
+• Primera release pública
