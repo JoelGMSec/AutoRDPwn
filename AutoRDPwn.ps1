@@ -358,7 +358,7 @@ if($Language -in 'Spanish') {
         $exportdata = $wlans | Foreach-Object {$_.Replace("    $txt58     : ",$null)}
         $exportdata | ForEach-Object {netsh wlan show profiles name="$_" key=clear}}
 	$wifikey = Get-Wlan-Keys ; if (!($wifikey -like "*Wi-Fi*")){ Write-Host ; Write-Host "$txt60" -ForegroundColor Red ; sleep -milliseconds 4000 } 
-	else { $wifikey ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; pause }}
+	else { Write-Host ; $wifikey ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; pause }}
 	
         if($mimikatz -like 'X'){ $input = 'x' ; continue }
         if($mimikatz -in '1','2','3','4','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; sleep -milliseconds 4000 }}
