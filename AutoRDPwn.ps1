@@ -189,7 +189,7 @@ if($Language -in 'Spanish') {
   $txt43 = "Introduce el puerto remoto:` "
   $txt44 = "Por último, la IP de destino:` "
   $txt45 = "Redirección creada correctamente!"
-  $txt46 = "Configuración guardada con éxito!"
+  $txt46 = "Configuración guardada correctamente!"
   $txt47 = "No existe ninguna redirección para mostrar"
   $txt48 = "Todas las redirecciones han sido eliminadas"
   $txt49 = "Recuperar contraseñas de los navegadores con SharpWeb"
