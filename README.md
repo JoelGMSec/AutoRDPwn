@@ -11,23 +11,15 @@ Powershell 4.0 o superior
 # Cambios
 
 ## Versión 4.6
-• Nueva interfaz de usuario totalmente rediseñada
-
-• Ejecución en memoria mejorada
-
-• Ahora los binarios se descargan en base64 y se generan en local
-
-• Nuevo módulo disponible: Consola de Netcat (conexión directa e inversa)
-
-• Nuevo módulo disponible: Recuperar contraseñas de los navegadores con SharpWeb
-
-• Nuevo módulo disponible: Recuperar contraseñas Wi-Fi
-
-• Nuevo módulo disponible: TCP Port Scan
-
-• Nuevo módulo disponible: Local Port Forwarding
-
-• Nuevo módulo disponible: Powershell Web Server
+- Nueva interfaz de usuario totalmente rediseñada
+- Ejecución en memoria mejorada
+- Ahora los binarios se descargan en base64 y se generan en local
+- Nuevo módulo disponible: Consola de Netcat (conexión directa e inversa)
+- Nuevo módulo disponible: Recuperar contraseñas de los navegadores con SharpWeb
+- Nuevo módulo disponible: Recuperar contraseñas Wi-Fi
+- Nuevo módulo disponible: TCP Port Scan
+- Nuevo módulo disponible: Local Port Forwarding
+- Nuevo módulo disponible: Powershell Web Server
 
 *El resto de cambios se pueden consultar en el fichero CHANGELOG
 
