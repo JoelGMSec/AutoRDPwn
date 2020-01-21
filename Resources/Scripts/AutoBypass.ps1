@@ -12,8 +12,8 @@ REG ADD "HKCU\Console" /v FontWeight /t REG_DWORD /d 700 /f 2>&1> $null
 REG ADD "HKCU\Console" /v ScreenBufferSize /t REG_DWORD /d 589889636 /f 2>&1> $null
 REG ADD "HKCU\Console" /v FontSize /t REG_DWORD /d 1048576 /f 2>&1> $null
 REG ADD "HKCU\Console" /v WindowSize /t REG_DWORD /d 1966180 /f 2>&1> $null
-REG ADD "HKCU\Console" /v WindowAlpha /t REG_DWORD /d 244 /f 2>&1> $null
-REG ADD "HKCU\Console" /v ColorTable00 /t REG_DWORD /d 789516 /f 2>&1> $null
+REG ADD "HKCU\Console" /v WindowAlpha /t REG_DWORD /d 252 /f 2>&1> $null
+REG ADD "HKCU\Console" /v ColorTable00 /t REG_DWORD /d 1e1e1e /f 2>&1> $null
 REG ADD "HKCU\Console" /v ColorTable01 /t REG_DWORD /d 14300928 /f 2>&1> $null
 REG ADD "HKCU\Console" /v ColorTable02 /t REG_DWORD /d 958739 /f 2>&1> $null
 REG ADD "HKCU\Console" /v ColorTable03 /t REG_DWORD /d 14521914 /f 2>&1> $null
