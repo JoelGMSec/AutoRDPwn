@@ -48,18 +48,14 @@ Esta aplicación puede usarse de forma local, remota o para pivotar entre equipo
 
 Al utilizarse de forma remota en una shell inversa, es necesario utilizar los siguientes parámetros:
 
-**-admin / -noadmin** -> Dependiendo de los permisos de los que dispongamos, utilizaremos una u otra
-
-**-nogui** -> Esto evitará cargar el menú y algunos colores, garantizado su funcionalidad
-
-**-lang** -> Elegiremos nuestro idioma (English, Spanish, French, German, Italian, Russian o Portuguese)
-
-**-option** -> Al igual que con el menú, podremos elegir de que forma lanzar el ataque
-
-**-shadow** -> Decidiremos si queremos ver o controlar el equipo remoto
-
-**-createuser** -> Este parámetro es opcional, creará el usuario AutoRDPwn (contraseña: AutoRDPwn) en el equipo víctima
-
+| Parámetro               | Descripción                                                                                  | 
+| :---------------------- | :------------------------------------------------------------------------------------------- | 
+| **-admin / -noadmin**   | Dependiendo de los permisos de los que dispongamos, utilizaremos una u otra                  |
+| **-nogui**              | Esto evitará cargar el menú y algunos colores, garantizado su funcionalidad                  | 
+| **-lang**               | Elegiremos nuestro idioma (English, Spanish, French, German, Italian, Russian o Portuguese)  |
+| **-option**             | Al igual que con el menú, podremos elegir de que forma lanzar el ataque                      |
+| **-shadow**             | Decidiremos si queremos ver o controlar el equipo remoto                                     |
+| **-createuser**         | Este parámetro es opcional, creará el usuario AutoRDPwn:AutoRDPwn en el equipo víctima       |
 
 **Ejecución local en una línea:**
 ```
@@ -169,18 +165,14 @@ This application can be used locally, remotely or to pivot between teams.
 
 When used remotely in a reverse shell, it is necessary to use the following parameters:
 
-**-admin / -noadmin** -> Depending on the permissions we have, we will use one or the other
-
-**-nogui** -> This will avoid loading the menu and some colors, guaranteed its functionality
-
-**-lang** -> We will choose our language (English, Spanish, French, German, Italian, Russian or Portuguese)
-
-**-option** -> As with the menu, we can choose how to launch the attack
-
-**-shadow** -> We will decide if we want to see or control the remote device
-
-**-createuser** -> This parameter is optional, the user AutoRDPwn (password: AutoRDPwn) will be created on the victim machine
-
+| Parameter               | Description                                                                                    | 
+| :---------------------- | :--------------------------------------------------------------------------------------------- | 
+| **-admin / -noadmin**   | Depending on the permissions we have, we will use one or the other                             |
+| **-nogui**              | This will avoid loading the menu and some colors, guaranteed its functionality                 | 
+| **-lang**               | We will choose our language (English, Spanish, French, German, Italian, Russian or Portuguese) |
+| **-option**             | As with the menu, we can choose how to launch the attack                                       |
+| **-shadow**             | We will decide if we want to see or control the remote device                                  |
+| **-createuser**         | This parameter is optional, the user AutoRDPwn:AutoRDPwn will be created on the victim machine |
 
 **Local execution on one line:**
 ```
