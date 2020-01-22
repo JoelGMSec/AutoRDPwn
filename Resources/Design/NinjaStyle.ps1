@@ -29,3 +29,4 @@ REG ADD "HKCU\Console" /v ColorTable12 /t REG_DWORD /d 5901010 /f 2>&1> $null
 REG ADD "HKCU\Console" /v ColorTable13 /t REG_DWORD /d 10354868 /f 2>&1> $null
 REG ADD "HKCU\Console" /v ColorTable14 /t REG_DWORD /d 10875385 /f 2>&1> $null
 REG ADD "HKCU\Console" /v ColorTable15 /t REG_DWORD /d 15921906 /f 2>&1> $null
+
