@@ -170,8 +170,8 @@ function Remove-Exclusions {
         Write-Host ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
         $password = $Host.UI.ReadLineAsSecureString() ; $credential = New-Object System.Management.Automation.PSCredential ( $user, $password )
         if(!$credential) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" }
-        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' }
-        if(!$user) { Invoke-WmiMethod -computer $computer -path win32_process -name create -argumentList $Pwn1 2>&1> $null
+        $Host.UI.RawUI.ForegroundColor = 'Blue' }
+        if(!$user) { Invoke-WmiMethod -computer $computer -path win32_process -name create -argumentList $Pwn1 2>&1> $null ; Write-Host
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
         Invoke-WmiMethod -computer $computer -path win32_process -name create -argumentList $Pwn2 2>&1> $null ; Write-Host
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
@@ -199,7 +199,7 @@ function Remove-Exclusions {
         Write-Host ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
         $password = $Host.UI.ReadLineAsSecureString() ; $credential = New-Object System.Management.Automation.PSCredential ( $user, $password )
         if(!$credential) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" }
-        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' }
+        $Host.UI.RawUI.ForegroundColor = 'Blue' }
         if(!$user) { Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn1 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
         Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn2 2>&1> $null ; Write-Host }
