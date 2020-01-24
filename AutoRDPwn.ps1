@@ -200,21 +200,21 @@ function Remove-Exclusions {
         $password = $Host.UI.ReadLineAsSecureString() ; $credential = New-Object System.Management.Automation.PSCredential ( $user, $password )
         if(!$credential) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" }
         Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' }
-        if(!$user) { Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn1 }
+        if(!$user) { Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn1 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
-        Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn2 }
+        Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn2 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
-        Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn3 }
+        Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn3 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
-        Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn4 }
+        Invoke-Command -Computer $computer -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn4 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }}
-        if($user) { Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn1 }
+        if($user) { Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn1 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
-        Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn2 }
+        Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn2 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
-        Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn3 }
+        Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn3 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
-        Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn4 }
+        Invoke-Command -Computer $computer -credential $credential -Authentication Negotiate -ScriptBlock { powershell.exe -windowstyle hidden $using:Pwn4 2>&1> $null ; Write-Host }
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }}}
 
         '5' {
