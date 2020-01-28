@@ -74,8 +74,8 @@ https://darkbyte.net/autordpwn-la-guia-definitiva
 
 
 # Capturas de pantalla
-![autordpwn_es1](https://user-images.githubusercontent.com/34335312/63512842-06136500-c4e5-11e9-8cec-4049b95db2c1.png)
-![autordpwn_es2](https://user-images.githubusercontent.com/34335312/63512843-06136500-c4e5-11e9-97a7-3d2a6e4c17e0.png)
+![AutoRDPwn1_es](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn1_es.PNG)
+![AutoRDPwn2_es](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn2_es.PNG)
 
 
 # Licencia
@@ -191,8 +191,8 @@ https://darkbyte.net/autordpwn-la-guia-definitiva
 
 
 # Screenshots
-![autordpwn_en1](https://user-images.githubusercontent.com/34335312/63512839-06136500-c4e5-11e9-84ec-3a00b76f3ca8.png)
-![autordpwn_en2](https://user-images.githubusercontent.com/34335312/63512840-06136500-c4e5-11e9-8289-c3d06c926061.png)
+![AutoRDPwn1_en](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn1_en.PNG)
+![AutoRDPwn2_en](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn2_en.PNG)
 
 
 # License
