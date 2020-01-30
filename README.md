@@ -24,6 +24,8 @@ Powershell 4.0 o superior
 
 • Ejecución remota mejorada (ya no es necesaria conexión a internet en la víctima)
 
+• Nuevo ataque disponible: Remote Desktop Execution
+
 • Nueva sección disponible: Backdoors y persistencia
 
 • Nuevo módulo disponible: Remote Keylogger
@@ -89,8 +91,6 @@ Este framework utiliza los siguientes scripts y herramientas:
 
 • Get-System de **HarmJ0y & Matt Graeber** -> https://github.com/HarmJ0y/Misc-PowerShell
 
-• Invoke-DCOM de **Steve Borosh** -> https://github.com/rvrsh3ll/Misc-Powershell-Scripts
-
 • Invoke-MetasploitPayload de **Jared Haight** -> https://github.com/jaredhaight/Invoke-MetasploitPayload
 
 • Invoke-Phant0m de **Halil Dalabasmaz** -> https://github.com/hlldz/Invoke-Phant0m
@@ -106,6 +106,8 @@ Este framework utiliza los siguientes scripts y herramientas:
 • RDP Wrapper de **Stas'M Corp.** -> https://github.com/stascorp/rdpwrap
 
 • SessionGopher de **Brandon Arvanaghi** -> https://github.com/Arvanaghi/SessionGopher
+
+• SharpRDP de **Steven F** -> https://github.com/0xthirteen/SharpRDP
 
 Y muchos más, que no caben aquí.. Gracias a todos ellos y su excelente trabajo.
 
@@ -140,6 +142,8 @@ Powershell 4.0 or higher
 • Partial support from Linux (more information in the user guide)
 
 • Improved remote execution (internet connection is no longer necessary on the victim)
+
+• New attack available: Remote Desktop Execution
 
 • New section available: Backdoors and persistence
 
@@ -206,8 +210,6 @@ This framework uses the following scripts and tools:
 
 • Get-System by **HarmJ0y & Matt Graeber** -> https://github.com/HarmJ0y/Misc-PowerShell
 
-• Invoke-DCOM by **Steve Borosh** -> https://github.com/rvrsh3ll/Misc-Powershell-Scripts
-
 • Invoke-MetasploitPayload by **Jared Haight** -> https://github.com/jaredhaight/Invoke-MetasploitPayload
 
 • Invoke-Phant0m by **Halil Dalabasmaz** -> https://github.com/hlldz/Invoke-Phant0m
@@ -222,7 +224,9 @@ This framework uses the following scripts and tools:
 
 • RDP Wrapper by **Stas'M Corp.** -> https://github.com/stascorp/rdpwrap
 
-• SessionGopher of **Brandon Arvanaghi** -> https://github.com/Arvanaghi/SessionGopher
+• SessionGopher by **Brandon Arvanaghi** -> https://github.com/Arvanaghi/SessionGopher
+
+• SharpRDP by **Steven F** -> https://github.com/0xthirteen/SharpRDP
 
 And many more, that do not fit here.. Thanks to all of them and their excellent work.
 
