@@ -95,8 +95,11 @@ function Remove-Exclusions {
        'H' { Write-Host ; Write-Host $help -ForegroundColor Green ; Write-Host ; Write-Host 'https://darkbyte.net/autordpwn-la-guia-definitiva' -ForegroundColor Blue ; Start-Sleep -milliseconds 7500 }
        'X' { return }
 
-    default { Write-Host ; Write-Host "Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}} until ($input -in '1','2','3','4','5','6','7','X')}
-    
+    default { $langui = (Get-Culture).Name ;  if ($langui -like 'en*') { $input = '1' ; $language = 'English' } ; if ($langui -like 'es*') { $input = '2' ; $language = 'Spanish' }
+    if ($langui -like 'fr*') { $input = '3' ; $language = 'French' } ; if ($langui -like 'de*') { $input = '4' ; $language = 'German' } ;  if ($langui -like 'it*') { $input = '5' ; $language = 'Italian' }
+    if ($langui -like 'ru*') { $input = '6' ; $language = 'Russian' } ; if ($langui -like 'pt*') { $input = '7' ; $language = 'Portuguese' }}    
+    else { Write-Host ; Write-Host "Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}} until ($input -in '1','2','3','4','5','6','7','X')}
+
     if($lang -like '-lang') { $language=$args[3] }
     if($language -in 'English') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/English.ps1') }
     if($language -in 'Spanish') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Spanish.ps1') }
