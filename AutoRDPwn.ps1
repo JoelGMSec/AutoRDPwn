@@ -83,7 +83,7 @@ function Remove-Exclusions {
 
     do { Show-Banner ; Show-Language
     $Random = New-Object System.Random ; "Choose your language:` " -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-    $Host.UI.RawUI.ForegroundColor = 'Green' ; $input = $Host.UI.ReadLine() ; switch ($input) {
+    $Host.UI.RawUI.ForegroundColor = 'Green' ; $cursortop = [System.Console]::get_CursorTop() ; $input = $Host.UI.ReadLine() ; switch ($input) {
 
        '1' { $language = 'English' }
        '2' { $language = 'Spanish' }
@@ -95,9 +95,14 @@ function Remove-Exclusions {
        'H' { Write-Host ; Write-Host $help -ForegroundColor Green ; Write-Host ; Write-Host 'https://darkbyte.net/autordpwn-la-guia-definitiva' -ForegroundColor Blue ; Start-Sleep -milliseconds 7500 }
        'X' { return }
 
-    default { $langui = (Get-Culture).Name ;  if ($langui -like 'en*') { $input = '1' ; $language = 'English' } ; if ($langui -like 'es*') { $input = '2' ; $language = 'Spanish' }
-    if ($langui -like 'fr*') { $input = '3' ; $language = 'French' } ; if ($langui -like 'de*') { $input = '4' ; $language = 'German' } ;  if ($langui -like 'it*') { $input = '5' ; $language = 'Italian' }
-    if ($langui -like 'ru*') { $input = '6' ; $language = 'Russian' } ; if ($langui -like 'pt*') { $input = '7' ; $language = 'Portuguese' }}    
+    default { $langui = (Get-Culture).Name 
+    if ($langui -like 'en*') { $input = '1' ; $language = 'English' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "1" }
+    if ($langui -like 'es*') { $input = '2' ; $language = 'Spanish' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "2" }
+    if ($langui -like 'fr*') { $input = '3' ; $language = 'French' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "3" }
+    if ($langui -like 'de*') { $input = '4' ; $language = 'German' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "4" }
+    if ($langui -like 'it*') { $input = '5' ; $language = 'Italian' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "5" }
+    if ($langui -like 'ru*') { $input = '6' ; $language = 'Russian' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "6" }
+    if ($langui -like 'pt*') { $input = '7' ; $language = 'Portuguese' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "7" }}
     else { Write-Host ; Write-Host "Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}} until ($input -in '1','2','3','4','5','6','7','X')}
 
     if($lang -like '-lang') { $language=$args[3] }
