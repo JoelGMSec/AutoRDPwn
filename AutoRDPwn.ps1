@@ -628,5 +628,6 @@ if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-
 else { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 } if($tsfail) { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
 
 Write-Host ; Write-Host $txt75 -ForegroundColor Red ; Start-Sleep -milliseconds 2500
-$sid = (gwmi win32_process | select handle, commandline | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid ; Write-Host ; Write-Host $txt76 -ForegroundColor Green ; Start-Sleep -milliseconds 2500 
+$sid = (gwmi win32_process | select handle, commandline | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid
 $PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript ; del (Get-PSReadlineOption).HistorySavePath ; Remove-Exclusions 2>&1> $null ; Set-Clipboard $null 2>&1> $null
+Write-Host ; Write-Host $txt76 -ForegroundColor Green ; Start-Sleep -milliseconds 2500
