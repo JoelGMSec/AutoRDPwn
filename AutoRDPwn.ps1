@@ -523,29 +523,29 @@ function Remove-Exclusions {
 
     invoke-command -session $RDP[0] -scriptblock {
     $AllowAnonymousCallback = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\WBEM\CIMOM").AllowAnonymousCallback
-      New-ItemProperty "HKLM:\SOFTWARE\Microsoft\WBEM\CIMOM" -Name AllowAnonymousCallback -Value 1 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SOFTWARE\Microsoft\WBEM\CIMOM" -Name AllowAnonymousCallback -Value 1 -PropertyType DWORD -Force 2>&1> $null
     $DisableRestrictedAdmin = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa").DisableRestrictedAdmin
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name DisableRestrictedAdmin -Value 0 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name DisableRestrictedAdmin -Value 0 -PropertyType DWORD -Force 2>&1> $null
     $AutoShareWks = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters").AutoShareWks
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name AutoShareWks -Value 1 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name AutoShareWks -Value 1 -PropertyType DWORD -Force 2>&1> $null
     $AutoShareServer = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters").AutoShareServer
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name AutoShareServer -Value 1 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name AutoShareServer -Value 1 -PropertyType DWORD -Force 2>&1> $null
     $AllowRemoteRPC = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server").AllowRemoteRPC
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name AllowRemoteRPC -Value 1 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name AllowRemoteRPC -Value 1 -PropertyType DWORD -Force 2>&1> $null
     $fDenyTSConnections = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server").fDenyTSConnections
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name fDenyTSConnections -Value 0 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name fDenyTSConnections -Value 0 -PropertyType DWORD -Force 2>&1> $null
     $fAllowToGetHelp = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance").fAllowToGetHelp
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name fAllowToGetHelp -Value 1 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name fAllowToGetHelp -Value 1 -PropertyType DWORD -Force 2>&1> $null
     $fAllowFullControl = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance").fAllowFullControl
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name fAllowFullControl -Value 1 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name fAllowFullControl -Value 1 -PropertyType DWORD -Force 2>&1> $null
     $SecurityLayer = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").SecurityLayer
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name SecurityLayer -Value 0 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name SecurityLayer -Value 0 -PropertyType DWORD -Force 2>&1> $null
     $UserAuthentication = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").UserAuthentication
-      New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name UserAuthentication -Value 0 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name UserAuthentication -Value 0 -PropertyType DWORD -Force 2>&1> $null
     $LocalAccountTokenFilterPolicy = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System").LocalAccountTokenFilterPolicy
-      New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name LocalAccountTokenFilterPolicy -Value 1 -PropertyType DWORD -Force 2>&1> $null }
+    New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name LocalAccountTokenFilterPolicy -Value 1 -PropertyType DWORD -Force 2>&1> $null }
     $AllowEncryptionOracle = (Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters").AllowEncryptionOracle
-      New-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters" -Name AllowEncryptionOracle -Value 2 -PropertyType DWORD -Force 2>&1> $null
+    New-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters" -Name AllowEncryptionOracle -Value 2 -PropertyType DWORD -Force 2>&1> $null
 
     Write-Host ; Write-Host "$txt32" -ForegroundColor Blue ; $hostname = invoke-command -session $RDP[0] -scriptblock { $env:computername }
     Write-Host ; Write-Host "$txt33" -NoNewLine ; Write-Host $hostname.tolower() -ForegroundColor Gray
