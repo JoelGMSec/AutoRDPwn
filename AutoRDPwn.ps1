@@ -95,7 +95,7 @@ function Remove-Exclusions {
        'H' { Write-Host ; Write-Host $help -ForegroundColor Green ; Write-Host ; Write-Host 'https://darkbyte.net/autordpwn-la-guia-definitiva' -ForegroundColor Blue ; Start-Sleep -milliseconds 7500 }
        'X' { return }
 
-    default { $langui = (Get-Culture).Name 
+    default { $langui = (Get-Culture).Name ; if (!$input) {
     if ($langui -like 'en*') { $input = '1' ; $language = 'English' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "1" }
     if ($langui -like 'es*') { $input = '2' ; $language = 'Spanish' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "2" }
     if ($langui -like 'fr*') { $input = '3' ; $language = 'French' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "3" }
@@ -103,7 +103,7 @@ function Remove-Exclusions {
     if ($langui -like 'it*') { $input = '5' ; $language = 'Italian' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "5" }
     if ($langui -like 'ru*') { $input = '6' ; $language = 'Russian' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "6" }
     if ($langui -like 'pt*') { $input = '7' ; $language = 'Portuguese' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "7" }}
-    else { Write-Host ; Write-Host "Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}} until ($input -in '1','2','3','4','5','6','7','X')}
+    else { Write-Host ; Write-Host "Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }} else { $null }}} until ($input -in '1','2','3','4','5','6','7','X')}
 
     if($lang -like '-lang') { $language=$args[3] }
     if($language -in 'English') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/English.ps1') }
@@ -646,6 +646,6 @@ if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-
 else { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 } if($tsfail) { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
 
 Write-Host ; Write-Host $txt75 -ForegroundColor Red ; Start-Sleep -milliseconds 2500
-$sid = (gwmi win32_process | select handle, commandline | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid ; if ($attack) { Start-Sleep -milliseconds 2500 ; Write-Host $txt77 -ForegroundColor Blue }
+$sid = (gwmi win32_process | select handle, commandline | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid ; if ($attack) { Start-Sleep -milliseconds 2500 ; Write-Host ; Write-Host $txt77 -ForegroundColor Blue ; Start-Sleep -milliseconds 4500 }
 $PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript ; del (Get-PSReadlineOption).HistorySavePath ; Remove-Exclusions 2>&1> $null ; Set-Clipboard $null 2>&1> $null
 Write-Host ; Write-Host $txt76 -ForegroundColor Green ; Start-Sleep -milliseconds 2500
