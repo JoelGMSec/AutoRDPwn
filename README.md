@@ -1,4 +1,4 @@
-<p align="center"><img width=500 alt="AutoRDPwn" src="https://user-images.githubusercontent.com/34335312/54979916-b451c780-4fa4-11e9-8173-1b5c885b9c3c.png?raw=true"></p>
+<p align="center"><img width=500 alt="AutoRDPwn" src="https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/AutoRDPwn.png"></p>
 
 **AutoRDPwn** es un framework de post-explotación creado en Powershell, diseñado principalmente para automatizar el ataque **Shadow** en equipos Microsoft Windows. Esta vulnerabilidad (catalogada como característica por Microsoft) permite a un atacante remoto visualizar el escritorio de su víctima sin su consentimiento, e incluso controlarlo a petición, utilizando herramientas nativas del propio sistema operativo.
 
