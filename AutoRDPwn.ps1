@@ -246,9 +246,9 @@ function Remove-Exclusions {
         if($? -eq 'True') { Write-Host "[+] Command was executed successfully!" } else { Write-Host "[-] Command execution failed!" -ForegroundColor Red }}
 
         '6' {
-        Write-Host ; $test = Test-Command tscon ; if($test -in 'True'){ Write-Host "$txt28" -ForegroundColor Blue ; Write-Host
-        Install-PackageProvider -Name NuGet -Force | Out-Null ; Install-Module -Name NtObjectManager -SkipPublisherCheck -Force | Out-Null
-        Write-Host "$using:txt33" ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; query session ; Write-Host
+        Write-Host ; $test = Test-Command tscon ; if($test -in 'True'){ Write-Host "$txt28" -ForegroundColor Green ; Write-Host
+        Install-PackageProvider -Name NuGet -Force 2>&1> $null ; Install-Module -Name NtObjectManager -SkipPublisherCheck -Force 2>&1> $null
+        Write-Host "$txt35" -ForegroundColor Blue ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; query session ; Write-Host
         $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "$txt36" -NoNewLine -ForegroundColor Gray ; $tscon = $Host.UI.ReadLine()
         Start-Win32ChildProcess "tscon $tscon" 2>&1> $null ; if($? -in 'True'){ continue } else{ $tsfail = 'True' }}
         else { Write-Host "$txt5" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 ; $input = $null ; Show-Banner ; Show-Menu }}
