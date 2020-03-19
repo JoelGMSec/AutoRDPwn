@@ -517,7 +517,7 @@ function Remove-Exclusions {
 
         'control*' { $control = "true" ; Write-Host
         invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 2 /f 2>&1> $null
-        if ($stickykeys){ Write-Host "$using:txt34" -ForegroundColor Blue } else { Write-Host "$using:txt31" -ForegroundColor Blue }}
+        if ($stickykeys){ Write-Host "$using:txt34" -ForegroundColor Blue } else { Write-Host "$using:txt31" -ForegroundColor Blue }}}
 
         default { Write-Host ; Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }}} until ($input -in 'ver','see','controlar','control')
 
