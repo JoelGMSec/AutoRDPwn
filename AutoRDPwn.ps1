@@ -545,6 +545,8 @@ function Remove-Exclusions {
     New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name SecurityLayer -Value 0 -PropertyType DWORD -Force 2>&1> $null
     $UserAuthentication = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").UserAuthentication
     New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name UserAuthentication -Value 0 -PropertyType DWORD -Force 2>&1> $null
+    $fDisableAudioCapture = (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").fDisableAudioCapture
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name fDisableAudioCapture -Value 0 -PropertyType DWORD -Force 2>&1> $null
     $LocalAccountTokenFilterPolicy = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System").LocalAccountTokenFilterPolicy
     New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name LocalAccountTokenFilterPolicy -Value 1 -PropertyType DWORD -Force 2>&1> $null }
     $AllowEncryptionOracle = (Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters").AllowEncryptionOracle
