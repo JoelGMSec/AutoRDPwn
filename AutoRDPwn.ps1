@@ -649,5 +649,5 @@ if ($noclean -like '-noclean') { $null } else { Write-Host ; Write-Host $txt75 -
 if ($sticky) { $sid = (gwmi win32_process | select handle, commandline | findstr "mstsc" | findstr "admin").split("").trim()[0] ; Wait-Process -Id $sid } 
 else { $sid = (gwmi win32_process | select handle, commandline | findstr "mstsc" | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid }
 if ($attack) { Start-Sleep -milliseconds 2500 ; Write-Host ; Write-Host $txt77 -ForegroundColor Blue ; Start-Sleep -milliseconds 4500 }
-$PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript ; del (Get-PSReadlineOption).HistorySavePath ; Remove-Exclusions 2>&1> $null ; Set-Clipboard $null 2>&1> $null
+$PScript = $MyInvocation.MyCommand.Definition ; Remove-Item $PScript ; del (Get-PSReadlineOption).HistorySavePath ; Remove-Exclusions 2>&1> $null ; Set-Clipboard $null 2>&1> $null ; cmdkey /del $computer 2>&1> $null
 Write-Host ; Write-Host $txt76 -ForegroundColor Green ; Start-Sleep -milliseconds 2500 }
