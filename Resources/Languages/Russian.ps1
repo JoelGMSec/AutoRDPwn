@@ -77,7 +77,7 @@ $txt74 = "Напишите функцию, которую вы хотите вы
 $txt75 = "Ожидание закрытия всех процессов.."
 $txt76 = "Очистка выполнена!"
 $txt77 = "Отмена изменений на удаленном компьютере.."
-$Pwn1  = "Set-NetConnectionProfile -InterfaceIndex ((Get-NetConnectionProfile).interfaceindex) -NetworkCategory Private ; winrm quickconfig -quiet ; Enable-PSRemoting -Force"
+$Pwn1  = "Set-NetConnectionProfile -InterfaceIndex ((Get-NetConnectionProfile).interfaceindex) -NetworkCategory Private ; winrm quickconfig -force ; Enable-PSRemoting -Force"
 $Pwn2  = "netsh advfirewall firewall set rule group = 'Удаленная помощь' new enable = Yes; netsh advfirewall firewall set rule group='Удаленный рабочий стол' new enable=yes ; Set-ExecutionPolicy Unrestricted -Force"
 $Pwn3  = "netsh advfirewall firewall set rule group = 'Обнаружение сети' new enable = Yes; netsh advfirewall firewall set rule group = 'Удаленное управление запланированными задачами' new enable = yes"
 $Pwn4  = "netsh advfirewall firewall set rule group = 'Инструментарий управления Windows (WMI)' new enable = yes; netsh advfirewall firewall set rule group = 'Удаленное управление Windows' new enable = yes"
