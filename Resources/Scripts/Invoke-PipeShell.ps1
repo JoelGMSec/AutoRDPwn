@@ -242,7 +242,7 @@ function Invoke-PipeShell {
 
 
 					if ($INTERACTIVE) { 
-						$Command = Read-Host "PS SMB:\> "
+						$Command = Read-Host "`n[$env:computername.tolower()]PS SMB`:`\`> "
 					} else {
 						$Command = $c
 					}
