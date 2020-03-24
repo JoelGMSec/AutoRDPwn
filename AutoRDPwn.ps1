@@ -281,27 +281,27 @@ function Remove-Exclusions {
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $module = $Host.UI.ReadLine()
 
         if($module -like '1') { Show-Banner
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] -$txt39" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt39" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - Named Pipe Remote Shell (SMB)" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] -$txt51" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] -$txt52" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] -$txt22" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] -$txt2" -ForegroundColor Gray
-        Write-Host ;$Random = New-Object System.Random ;$txt8 -split '' | ForEach-Object{Write-Host$_ -nonew ; Start-Sleep -milliseconds$(1 +$Random.Next(25))}
-        $Host.UI.RawUI.ForegroundColor = 'Green' ;$shell =$Host.UI.ReadLine() ; Write-Host
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt51" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt52" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
+        Write-Host ; $Random = New-Object System.Random ; $txt8 -split '' | ForEach-Object{Write-Host$_ -nonew ; Start-Sleep -milliseconds$(1 +$Random.Next(25))}
+        $Host.UI.RawUI.ForegroundColor = 'Green' ; $shell = $Host.UI.ReadLine() ; Write-Host
 
         if($shell -like '1'){$console = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
 
         if($shell -like '2'){$smbshell = "true" ; Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
         
         if($shell -like '3'){ Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
-        Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ;$ncport =$Host.UI.ReadLine() ; Write-Host
+        Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
         Write-Host "$txt46" -ForegroundColor Green ;$netcat = 'local' ; Start-Sleep -milliseconds 2000 }
 
         if($shell -like '4'){ Write-Host "$txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
-        Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ;$ncport =$Host.UI.ReadLine() ; Write-Host
-        Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ;$ipadress =$Host.UI.ReadLine() ; Write-Host
-        Write-Host "$txt46" -ForegroundColor Green ;$netcat = 'remote' ; Start-Sleep -milliseconds 2000 }
+        Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
+        Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ; $ipadress = $Host.UI.ReadLine() ; Write-Host
+        Write-Host "$txt46" -ForegroundColor Green ; $netcat = 'remote' ; Start-Sleep -milliseconds 2000 }
 
         if($shell -like 'X'){$input = 'x' ; continue }
         if($shell -in '1','2','3','4','m') {$null } else { Write-Host "$txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
