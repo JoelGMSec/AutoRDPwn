@@ -505,7 +505,7 @@ function Remove-Exclusions {
    $Host.UI.RawUI.ForegroundColor = 'Green' ; winrm quickconfig -force ; Set-Item wsman:\localhost\client\trustedhosts * -Force
    Set-NetConnectionProfile -InterfaceIndex ((Get-NetConnectionProfile).interfaceindex) -NetworkCategory Private ; $i = 0 ; do { $i++ ; if(!$user) { $RDP = New-PSSession -Computer $computer -Authentication Negotiate }
    if($user) { $credential = New-Object System.Management.Automation.PSCredential ( $user, $password ) ; cmdkey /add:$computer /user:$user /pass:$PlainTextPassword 2>&1> $null
-   $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; Start-Sleep -milliseconds 500 } until ($session -or $i -eq 10) ; if ($session){ $attack = "true"
+   $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; Start-Sleep -milliseconds 200 } until ($session -or $i -eq 10) ; if ($session){ $attack = "true"
 
         do { $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $input = "sticky" } elseif($shadowoption -like '-shadow') { $input=$args[7] } else {
         if($hash){ $user = $null } ; Write-Host ; Write-Host "[?] $txt29" -NoNewLine -ForegroundColor Gray ; $input = $Host.UI.ReadLine()}
