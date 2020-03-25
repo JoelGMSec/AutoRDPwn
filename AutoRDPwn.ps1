@@ -337,7 +337,7 @@ function Remove-Exclusions {
         $wlans = netsh wlan show profiles | Select-String -Pattern "$txt58" | Foreach-Object {$_.ToString()}
         $exportdata = $wlans | Foreach-Object {$_.Replace("    $txt58     : ",$null)}
         $exportdata | ForEach-Object {netsh wlan show profiles name="$_" key=clear}}
-        $wifikey = Get-Wlan-Keys ; if (!($wifikey -like "*Wi-Fi*")){ Write-Host ; Write-Host "$txt60" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } 
+        $wifikey = Get-Wlan-Keys ; if (!($wifikey -like "*Wi-Fi*")){ Write-Host ; Write-Host "[!] $txt60" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } 
         else { Write-Host ; $wifikey | Set-Clipboard ; Get-Clipboard ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; Write-Host "[i] " -nonewline ; pause }}
         
         if($passandhash -like 'X'){ $input = 'x' ; continue }
@@ -372,7 +372,7 @@ function Remove-Exclusions {
         if($forwarding -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; Write-Host "[?] $txt41" -NoNewLine -ForegroundColor Gray
         $lport = $Host.UI.ReadLine() ; Write-Host ; Write-Host "[?] $txt42" -NoNewLine -ForegroundColor Gray ; $lhost = $Host.UI.ReadLine() ; Write-Host
         Write-Host "[?] $txt43" -NoNewLine -ForegroundColor Gray ; $rport = $Host.UI.ReadLine() ; Write-Host ; Write-Host "[?] $txt44" -NoNewLine -ForegroundColor Gray ; $rhost = $Host.UI.ReadLine()
-        netsh interface portproxy add v4tov4 listenport=$lport listenaddress=$lhost connectport=$rport connectaddress=$rhost ; Write-Host "$txt45" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
+        netsh interface portproxy add v4tov4 listenport=$lport listenaddress=$lhost connectport=$rport connectaddress=$rhost ; Write-Host "[i] $txt45" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
 
         if($forwarding -like '2') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; Write-Host "[?] $txt41" -NoNewLine -ForegroundColor Gray
         $rlport = $Host.UI.ReadLine() ; Write-Host ; Write-Host "[?] $txt42" -NoNewLine -ForegroundColor Gray ; $rlhost = $Host.UI.ReadLine() ; Write-Host
@@ -383,7 +383,7 @@ function Remove-Exclusions {
         if(!$proxy){ Write-Host ; Write-Host "[!] $txt47" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } else { $Host.UI.RawUI.ForegroundColor = 'Gray' ; netsh interface portproxy show all ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }}
 
         if($forwarding -like '4') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; $proxy = netsh interface portproxy show all
-        if(!$proxy){ Write-Host ; Write-Host "[!] $txt47" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } else { netsh interface portproxy reset ; Write-Host "$txt48" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
+        if(!$proxy){ Write-Host ; Write-Host "[!] $txt47" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } else { netsh interface portproxy reset ; Write-Host "[!] $txt48" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
 
         if($forwarding -like 'X'){ $input = 'x' ; continue }
         if($forwarding -in '1','2','3','4','m') { $null } else { Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
