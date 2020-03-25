@@ -249,8 +249,10 @@ function Remove-Exclusions {
         '6' {
         Write-Host ; $test = Test-Command tscon ; if($test -in 'True'){ Write-Host "[i] $txt28" -ForegroundColor Green ; Write-Host
         Install-PackageProvider -Name NuGet -Force 2>&1> $null ; Install-Module -Name NtObjectManager -SkipPublisherCheck -Force 2>&1> $null
-        Write-Host "[+] $txt35" -ForegroundColor Blue ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; query session ; Write-Host
-        $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[?] $txt36" -NoNewLine -ForegroundColor Gray ; $tscon = $Host.UI.ReadLine()
+        Write-Host "[+] $txt35" -ForegroundColor Blue ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; query session
+        do { Write-Host ; Write-Host "[?] $txt36" -NoNewLine -ForegroundColor Gray ; $tscon = $Host.UI.ReadLine() ; 
+        if(!$tscon){ Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } elseif($tscon -notmatch '^[1-99]+$'){
+        Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; $tscon = $null }} until ($tscon)
         Start-Win32ChildProcess "tscon $tscon" 2>&1> $null ; if($? -in 'True'){ continue } else{ $tsfail = 'True' }}
         else { Write-Host "[!] $txt5" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; $input = $null ; Show-Banner ; Show-Menu }}
 
@@ -575,8 +577,7 @@ function Remove-Exclusions {
         if($version -Like '*Server*') { Write-Host "[!] $version $txt37" -ForegroundColor Red ; if(!$sticky) { invoke-command -session $RDP[0] -scriptblock { $Host.UI.RawUI.ForegroundColor = 'Green'
         (Get-WmiObject -class Win32_TSGeneralSetting -Namespace root\cimv2\terminalservices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) 2>&1> $null
         Write-Host ; Write-Host "[+] $using:txt35" -ForegroundColor Blue ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; query session } ; $Host.UI.RawUI.ForegroundColor = 'Green'
-        do { Write-Host ; Write-Host "[?] $txt36" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
-        $shadow = $Host.UI.ReadLine() ; if(!$shadow) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }
+        do { Write-Host ; Write-Host "[?] $txt36" -NoNewLine -ForegroundColor Gray ; $shadow = $Host.UI.ReadLine() ; if(!$shadow){ Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }
         elseif($shadow -notmatch '^[1-99]+$') { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; $shadow = $null }} until ($shadow)}
 
         if($OSVersion -like 'Unix'){ if(!$user){ xfreerdp /v:$computer /restricted-admin /u:$user } else { xfreerdp /v:$computer /admin /u:$user /p:$password }}
