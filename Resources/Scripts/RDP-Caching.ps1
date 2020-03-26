@@ -44,10 +44,10 @@ while ($bytesRead -eq $bufSize)
                     $bmBM.SetPixel($jt*$tileSize+$js,$it*$tileSize+$is,[System.Drawing.Color]::FromArgb($red, $green, $blue))
                     }
                 }
+            Write-Progress -Activity "Completing row" -Completed
             }
         }
         $imgNoText=($imgNo).ToString("0000")
         $bmBM.Save("$workingDir\$imgNamePrefix.$imgNoText.png")
-        Write-Progress -Activity "Completing row" -Completed
         Write-Progress -Activity "Analyzing cache file" -Completed
     }
