@@ -1,6 +1,6 @@
 Add-Type -Assembly System.Drawing
 $workingDir = "$env:Temp\Recovered_RDP_Session"
-md $workingDir
+md $workingDir ; ls $workingDir
 $file=(dir Env:\LOCALAPPDATA).Value+"\Microsoft\Terminal Server Client\Cache\Cache0001.bin"
  
 $tileSize = 64
