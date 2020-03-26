@@ -48,7 +48,6 @@ while ($bytesRead -eq $bufSize)
         }
         $imgNoText=($imgNo).ToString("0000")
         $bmBM.Save("$workingDir\$imgNamePrefix.$imgNoText.png")
+        Write-Progress -Activity "Completing row" -Completed
+        Write-Progress -Activity "Analyzing cache file" -Completed
     }
-    
-Write-Progress -Activity "Analyzing cache file" -Completed
-Write-Progress -Activity "Completing row" -Completed
