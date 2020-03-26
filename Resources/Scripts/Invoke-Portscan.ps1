@@ -1057,6 +1057,7 @@ http://webstersprodigy.net
             $enddate = Get-Date
             $totaltime = ($enddate - $startdate).TotalSeconds
             $endMsg = "Port scan complete at $enddate ($totaltime seconds)"
+            Write-Progress -Activity $startMsg -Completed
             if (!$SkipDiscovery) {
                 $endMsg += ", $upHosts hosts are up"
             }
