@@ -249,11 +249,11 @@ function Remove-Exclusions {
         '6' {
         Write-Host ; $test = Test-Command tscon ; if($test -in 'True'){ Write-Host "[i] $txt28" -ForegroundColor Green ; Write-Host
         Install-PackageProvider -Name NuGet -Force 2>&1> $null ; Install-Module -Name NtObjectManager -SkipPublisherCheck -Force 2>&1> $null
-        Write-Host "[+] $txt35" -ForegroundColor Blue ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; query session
+        Write-Host "[+] $txt35" -ForegroundColor Blue ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Start-Sleep -milliseconds 2000 ; query session 
         do { Write-Host ; Write-Host "[?] $txt36" -NoNewLine -ForegroundColor Gray ; $tscon = $Host.UI.ReadLine() ; 
         if(!$tscon){ Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } elseif($tscon -notmatch '^[1-99]+$'){
         Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; $tscon = $null }} until ($tscon)
-        Start-Win32ChildProcess "tscon $tscon" 2>&1> $null ; if($? -in 'True'){ continue } else{ $tsfail = 'True' }}
+        Start-Sleep -milliseconds 2000 ; Start-Win32ChildProcess "tscon $tscon" 2>&1> $null ; if($? -in 'True'){ continue } else{ $tsfail = 'True' }}
         else { Write-Host "[!] $txt5" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; $input = $null ; Show-Banner ; Show-Menu }}
 
         '7' {
