@@ -32,7 +32,6 @@ while ($bytesRead -eq $bufSize)
         Write-Progress -Activity "Analyzing cache file" -Status "Row $it of $tilesPerGraphH" -PercentComplete (($it/$tilesPerGraphH)*100) -id 0
         for ($jt=0; $jt -lt $tilesPerGraphW; $jt++)
             {
-            Write-Progress -Activity "Completing row" -Status "Column $jt" -PercentComplete (($jt/$tilesPerGraphW)*100) -ParentId 0 -Id 1
             for ($is=0; $is -lt $tileSize; $is++)
                 {
                 for ($js=0; $js -lt $tileSize; $js++)
@@ -44,10 +43,9 @@ while ($bytesRead -eq $bufSize)
                     $bmBM.SetPixel($jt*$tileSize+$js,$it*$tileSize+$is,[System.Drawing.Color]::FromArgb($red, $green, $blue))
                     }
                 }
-            Write-Progress -Activity "Completing row" -Completed
             }
         }
         $imgNoText=($imgNo).ToString("0000")
         $bmBM.Save("$workingDir\$imgNamePrefix.$imgNoText.png")
-        Write-Progress -Activity "Analyzing cache file" -Completed
+        Write-Progress -Activity "Analyzing cache file" -Status "Row $it of $tilesPerGraphH" -id 0 -Completed
     }
