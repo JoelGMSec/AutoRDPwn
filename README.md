@@ -89,23 +89,19 @@ Este framework utiliza los siguientes scripts y herramientas:
 
 • Chachi-Enumerator de **Luis Vacas** -> https://github.com/Hackplayers/PsCabesha-tools
 
-• Get-System de **HarmJ0y & Matt Graeber** -> https://github.com/HarmJ0y/Misc-PowerShell
-
-• Invoke-MetasploitPayload de **Jared Haight** -> https://github.com/jaredhaight/Invoke-MetasploitPayload
-
 • Invoke-Phant0m de **Halil Dalabasmaz** -> https://github.com/hlldz/Invoke-Phant0m
 
 • Invoke-PowerShellTcp de **Nikhil "SamratAshok" Mittal** -> https://github.com/samratashok/nishang
 
 • Invoke-TheHash de **Kevin Robertson** -> https://github.com/Kevin-Robertson/Invoke-TheHash
 
-• Mimikatz de **Benjamin Delpy** -> https://github.com/gentilkiwi/mimikatz
+• Mimikatz dey **Benjamin Delpy** -> https://github.com/gentilkiwi/mimikatz
+
+• PowerUp de **HarmJ0y & Matt Graeber** -> https://github.com/Arvanaghi/SessionGopher
 
 • PsExec de **Mark Russinovich** -> https://docs.microsoft.com/en-us/sysinternals/downloads/psexec
 
 • RDP Wrapper de **Stas'M Corp.** -> https://github.com/stascorp/rdpwrap
-
-• SessionGopher de **Brandon Arvanaghi** -> https://github.com/Arvanaghi/SessionGopher
 
 • SharpRDP de **Steven F** -> https://github.com/0xthirteen/SharpRDP
 
@@ -208,10 +204,6 @@ This framework uses the following scripts and tools:
 
 • Chachi-Enumerator by **Luis Vacas** -> https://github.com/Hackplayers/PsCabesha-tools
 
-• Get-System by **HarmJ0y & Matt Graeber** -> https://github.com/HarmJ0y/Misc-PowerShell
-
-• Invoke-MetasploitPayload by **Jared Haight** -> https://github.com/jaredhaight/Invoke-MetasploitPayload
-
 • Invoke-Phant0m by **Halil Dalabasmaz** -> https://github.com/hlldz/Invoke-Phant0m
 
 • Invoke-PowerShellTcp by **Nikhil "SamratAshok" Mittal** -> https://github.com/samratashok/nishang
@@ -220,11 +212,11 @@ This framework uses the following scripts and tools:
 
 • Mimikatz by **Benjamin Delpy** -> https://github.com/gentilkiwi/mimikatz
 
+• PowerUp by **HarmJ0y & Matt Graeber** -> https://github.com/Arvanaghi/SessionGopher
+
 • PsExec by **Mark Russinovich** -> https://docs.microsoft.com/en-us/sysinternals/downloads/psexec
 
 • RDP Wrapper by **Stas'M Corp.** -> https://github.com/stascorp/rdpwrap
-
-• SessionGopher by **Brandon Arvanaghi** -> https://github.com/Arvanaghi/SessionGopher
 
 • SharpRDP by **Steven F** -> https://github.com/0xthirteen/SharpRDP
 
