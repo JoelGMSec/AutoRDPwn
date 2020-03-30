@@ -1,6 +1,6 @@
-﻿[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8") ; $OSVersion = [Environment]::OSVersion.Platform
+﻿[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8") ; $ErrorActionPreference = "SilentlyContinue"
 $checkpath = Get-ChildItem $pwd\resources\Scripts ; if ($? -eq $true){ $local = "True" ; $localpath = $pwd ; Get-ChildItem -Path $localpath -Recurse | Unblock-File }
-$Host.UI.RawUI.WindowTitle = "AutoRDPwn - v5.0 - by @JoelGMSec" ; $ErrorActionPreference = "SilentlyContinue" ; $ProgressPreference = "SilentlyContinue" ; Set-StrictMode -Off ; $LogEngineLifeCycleEvent=$false ; $LogEngineHealthEvent=$false ; $LogProviderLifeCycleEvent=$false ; $LogProviderHealthEvent=$false ; Clear-EventLog "Windows PowerShell"
+$Host.UI.RawUI.WindowTitle = "AutoRDPwn - v5.0 - by @JoelGMSec" ; $OSVersion = [Environment]::OSVersion.Platform ; $ProgressPreference = "SilentlyContinue" ; Set-StrictMode -Off ; $LogEngineLifeCycleEvent=$false ; $LogEngineHealthEvent=$false ; $LogProviderLifeCycleEvent=$false ; $LogProviderHealthEvent=$false ; Clear-EventLog "Windows PowerShell"
 $Host.UI.RawUI.BackgroundColor = 'Black' ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; $Host.PrivateData.ErrorForegroundColor = 'Red' ; $Host.PrivateData.WarningForegroundColor = 'Magenta' ; $Host.PrivateData.DebugForegroundColor = 'Yellow' ; $Host.PrivateData.VerboseForegroundColor = 'Green' ; $Host.PrivateData.ProgressForegroundColor = 'White' ; $Host.PrivateData.ProgressBackgroundColor = 'Blue'
 $noadmin=$args[0] ; $nogui=$args[1] ; $lang=$args[2] ; $option=$args[4] ; $shadowoption=$args[6] ; $createuser=$args[8] ; $noclean=$args[9] ; if($args[1,2,3,4,5,6]){ if(!$args[7]) { Write-Host "Not enough parameters!" -ForegroundColor Red ; exit }}
 
