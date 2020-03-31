@@ -665,7 +665,7 @@ if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interf
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt39 <<" ; Write-Host ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
 else { Write-Host ; Write-Host "[!] $txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 } if($tsfail) { Write-Host ; Write-Host "[!] $txt40" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
 
-if ($noclean -like '-noclean') { $null } else { Write-Host ; Write-Host "[!] $txt75" -ForegroundColor Red ; Start-Sleep -milliseconds 2000
+if ($noclean -or $nogui) { $null } else { Write-Host ; Write-Host "[!] $txt75" -ForegroundColor Red ; Start-Sleep -milliseconds 2000
 if ($sticky) { $sid = (gwmi win32_process | select handle, commandline | findstr "mstsc" | findstr "admin").split("").trim()[0] ; Wait-Process -Id $sid } 
 elseif ($vncserver) { $sid = (gwmi win32_process | select handle, commandline | findstr "VNCViewer.exe" | findstr "AutoRDPwn").split("").trim()[0] ; Wait-Process -Id $sid } 
 else { $sid = (gwmi win32_process | select handle, commandline | findstr "mstsc" | findstr "shadow").split("").trim()[0] ; Wait-Process -Id $sid }
