@@ -9,7 +9,7 @@ REG ADD "HKCU\Console" /v QuickEdit /t REG_DWORD /d 1 /f 2>&1> $null
 REG ADD "HKCU\Console" /v FaceName /t REG_SZ /d Consolas /f 2>&1> $null
 REG ADD "HKCU\Console" /v FontFamily /t REG_DWORD /d 54 /f 2>&1> $null
 REG ADD "HKCU\Console" /v FontWeight /t REG_DWORD /d 700 /f 2>&1> $null
-REG ADD "HKCU\Console" /v ScreenBufferSize /t REG_DWORD /d 23290064 /f 2>&1> $null
+REG ADD "HKCU\Console" /v ScreenBufferSize /t REG_DWORD /d 196608100 /f 2>&1> $null
 REG ADD "HKCU\Console" /v FontSize /t REG_DWORD /d 1048576 /f 2>&1> $null
 REG ADD "HKCU\Console" /v WindowSize /t REG_DWORD /d 1966180 /f 2>&1> $null
 REG ADD "HKCU\Console" /v WindowAlpha /t REG_DWORD /d 252 /f 2>&1> $null
