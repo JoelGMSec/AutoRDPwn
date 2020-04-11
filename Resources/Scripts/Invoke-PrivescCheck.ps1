@@ -5869,7 +5869,7 @@ function Invoke-PrivescCheck {
 
     if($IsAdmin){
         "[+] Current user already has local administrative privileges! Safely exiting."
-
+        Write-Host
         # We don't want to continue, otherwise the script will identify almost everything as 
         # exploitable and thus generate a loooot of output. 
         return
