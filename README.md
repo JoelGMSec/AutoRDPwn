@@ -13,34 +13,26 @@ Powershell 4.0 o superior
 
 # Cambios
 
-## Versión 5.0
-• Nuevo logo rediseñado totalmente desde cero
+## Versión 5.1
+• Muchos errores corregidos
 
-• Traducción completa en 7 idiomas: es, en, fr, de, it, ru, pt
+• Mejoras estéticas y tiempos de espera mejorados
 
-• Ejecución remota a través de una shell inversa con Bypass de UAC y AMSI
+• Conexión proxy-aware a través de la configuración del sistema
 
-• Soporte parcial desde Linux (más información en la guía de uso)
+• Ahora es posible utilizar la herramienta offline descargando el fichero .zip
 
-• Ejecución remota mejorada (ya no es necesaria conexión a internet en la víctima)
+• Autodetección de idioma pulsando la tecla enter
 
-• Nuevo ataque disponible: Remote Desktop Execution
+• Invoke-DCOM ha sido sustituido por SharpRDP
 
-• Nueva sección disponible: Backdoors y persistencia
+• PowerUp ha sido sustituido por Invoke-PrivescCheck
 
-• Nuevo módulo disponible: Remote Keylogger
+• Creación de la subrutina de limpieza automática en la víctima
 
-• Nueva sección disponible: Escalada de privilegios 
+• Nuevo módulo disponble: SMB Shell cifrada con AES
 
-• Nuevo módulo disponible: Obtener información del sistema operativo
-
-• Nuevo módulo disponible: Buscar vulnerabilidades con Sherlock
-
-• Nuevo módulo disponible: Escalar privilegios con PowerUp
-
-• Nueva sección disponible: Otros Módulos
-
-• Nuevo módulo disponible: Ejecutar un script externo
+• Nuevo módulo disponible: Cambiar de usuario con RunAs
 
 *El resto de cambios se pueden consultar en el fichero CHANGELOG
 
@@ -58,6 +50,7 @@ Al utilizarse de forma remota en una shell inversa, es necesario utilizar los si
 | **-option**             | Al igual que con el menú, podremos elegir de que forma lanzar el ataque                      |
 | **-shadow**             | Decidiremos si queremos ver o controlar el equipo remoto                                     |
 | **-createuser**         | Este parámetro es opcional, creará el usuario AutoRDPwn:AutoRDPwn en el equipo víctima       |
+| **-noclean**            | Deshabilita el proceso de deshacer todos los cambios en el equipo víctima                    |
 
 **Ejecución local en una línea:**
 ```
@@ -97,8 +90,6 @@ Este framework utiliza los siguientes scripts y herramientas:
 
 • Mimikatz dey **Benjamin Delpy** -> https://github.com/gentilkiwi/mimikatz
 
-• PowerUp de **HarmJ0y & Matt Graeber** -> https://github.com/Arvanaghi/SessionGopher
-
 • PsExec de **Mark Russinovich** -> https://docs.microsoft.com/en-us/sysinternals/downloads/psexec
 
 • RDP Wrapper de **Stas'M Corp.** -> https://github.com/stascorp/rdpwrap
@@ -128,34 +119,26 @@ Powershell 4.0 or higher
 
 
 # Changes
-## Version 5.0
-• New logo completely redesigned from scratch
+## Version 5.1
+• Many bugs fixed
 
-• Full translation in 7 languages: es, en, fr, de, it, ru, pt
+• Aesthetic improvements and improved waiting times
 
-• Remote execution through a reverse shell with UAC and AMSI Bypass
+• Proxy-aware connection through system settings
 
-• Partial support from Linux (more information in the user guide)
+• It is now possible to use the offline tool by downloading the .zip file
 
-• Improved remote execution (internet connection is no longer necessary on the victim)
+• Language auto-detection by pressing the enter key
 
-• New attack available: Remote Desktop Execution
+• Invoke-DCOM has been replaced by SharpRDP
 
-• New section available: Backdoors and persistence
+• PowerUp has been replaced by Invoke-PrivescCheck
 
-• New module available: Remote Keylogger
+• Creation of the automatic cleaning subroutine in the victim
 
-• New section available: Privilege escalation
+• New module available: SMB Shell encrypted with AES
 
-• New module available: Obtain information from the operating system
-
-• New module available: Search vulnerabilities with Sherlock
-
-• New module available: Escalate privileges with PowerUp
-
-• New section available: Other Modules
-
-• New module available: Execute an external script
+• New module available: Change user with RunAs
 
 *The rest of the changes can be consulted in the CHANGELOG file
 
@@ -173,6 +156,7 @@ When used remotely in a reverse shell, it is necessary to use the following para
 | **-option**             | As with the menu, we can choose how to launch the attack                                       |
 | **-shadow**             | We will decide if we want to see or control the remote device                                  |
 | **-createuser**         | This parameter is optional, the user AutoRDPwn:AutoRDPwn will be created on the victim machine |
+| **-noclean**            | Disables the process of undoing all changes on the victim computer                             |
 
 **Local execution on one line:**
 ```
@@ -211,8 +195,6 @@ This framework uses the following scripts and tools:
 • Invoke-TheHash by **Kevin Robertson** -> https://github.com/Kevin-Robertson/Invoke-TheHash
 
 • Mimikatz by **Benjamin Delpy** -> https://github.com/gentilkiwi/mimikatz
-
-• PowerUp by **HarmJ0y & Matt Graeber** -> https://github.com/Arvanaghi/SessionGopher
 
 • PsExec by **Mark Russinovich** -> https://docs.microsoft.com/en-us/sysinternals/downloads/psexec
 
