@@ -18,7 +18,7 @@ Powershell 4.0 o superior
 
 • Mejoras estéticas y tiempos de espera mejorados
 
-• Conexión proxy-aware a través de la configuración del sistema
+• Conexión Proxy-Aware a través de la configuración del sistema
 
 • Ahora es posible utilizar la herramienta offline descargando el fichero .zip
 
@@ -124,7 +124,7 @@ Powershell 4.0 or higher
 
 • Aesthetic improvements and improved waiting times
 
-• Proxy-aware connection through system settings
+• Proxy-Aware connection through system settings
 
 • It is now possible to use the offline tool by downloading the .zip file
 
