@@ -490,6 +490,7 @@ function Remove-Exclusions {
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt18" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt62" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt67" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt79" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
         Write-Host ; Write-Host "[" -NoNewLine ; Write-Host "?" -NoNewLine -ForegroundColor Yellow ; Write-Host "] " -NoNewLine
@@ -511,8 +512,22 @@ function Remove-Exclusions {
         else { Import-Module $externalscript } ; if($externalfunction){ Invoke-Expression $externalfunction }
         Write-Host ; $Host.UI.RawUI.ForegroundColor = 'Green' ; Write-Host "[i] " -nonewline ; pause ; Start-Sleep -milliseconds 2000 }
 
+        if($othermodule -like '4') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; if ($local){ Import-Module .\Resources\Scripts\Invoke-RunAs.ps1 } else {
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-RunAs.ps1')}
+        Write-Host ; & $question ; Write-Host "$txt78" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
+        $user = $Host.UI.ReadLine() ; if(!$user) { [Console]::SetCursorPosition(0,"$cursortop")
+        & $question ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; Write-Host $currentuser ; $user = $currentuser }
+        do { Write-Host ; & $question ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; $cursortop = [System.Console]::get_CursorTop()
+        $password = $Host.UI.ReadLineAsSecureString() ; $PlainTextPassword = ConvertFrom-SecureToPlain $password
+        if(!$PlainTextPassword) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $PlainTextPassword )
+        Write-Host ; Write-Host "[+] $txt80" -ForegroundColor Blue ; Start-Sleep -milliseconds 2000
+        Add-Type -AssemblyName System.DirectoryServices.AccountManagement ; $obj = New-Object System.DirectoryServices.AccountManagement.PrincipalContext('machine', $env:computername)
+        $validate = $obj.ValidateCredentials($user, $PlainTextPassword) ; if ($validate -eq $true ){ Write-Host ; Write-Host "[i] $txt82" -ForegroundColor Green ; Start-Sleep -milliseconds 2000
+        ./RunAs.exe -u $user -p $PlainTextPassword -e "powershell Start-Process powershell -NoNewWindow -WorkingDirectory $localpath -ArgumentList $PSCommandPath $args" ; del ./RunAs.exe ; exit }
+        else { Write-Host ; Write-Host "[!] $txt81" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; del ./RunAs.exe }}
+
         if($othermodule -like 'X'){ $input = 'x' ; continue }
-        if($othermodule -in '1','2','3','m') { $null } else { Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
+        if($othermodule -in '1','2','3','4','m') { $null } else { Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
 
         if($module -like 'X'){ $input = 'x' ; continue } ; if($module -in '1','2','3','4','5','6','7','m','x') { $null }
         else { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
