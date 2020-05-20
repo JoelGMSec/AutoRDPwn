@@ -1,3 +1,20 @@
+# Versión 5.0
+• Nuevo logo rediseñado totalmente desde cero
+• Traducción completa en 7 idiomas: es, en, fr, de, it, ru, pt
+• Ejecución remota a través de una shell inversa con Bypass de UAC y AMSI
+• Soporte parcial desde Linux (más información en la guía de uso)
+• Ejecución remota mejorada (ya no es necesaria conexión a internet en la víctima)
+• Nuevo ataque disponible: Remote Desktop Execution
+• Nueva sección disponible: Backdoors y persistencia
+• Nuevo módulo disponible: Remote Keylogger
+• Nueva sección disponible: Escalada de privilegios 
+• Nuevo módulo disponible: Obtener información del sistema operativo
+• Nuevo módulo disponible: Buscar vulnerabilidades con Sherlock
+• Nuevo módulo disponible: Escalar privilegios con PowerUp
+• Nueva sección disponible: Otros Módulos
+• Nuevo módulo disponible: Ejecutar un script externo
+
+
 # Versión 4.8
 • Compatibilidad con Powershell 4.0
 • Copia automática del contenido al portapapeles (contraseñas, hashes, dumps, etc..)
