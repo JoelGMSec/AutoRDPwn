@@ -69,8 +69,8 @@ https://darkbyte.net/autordpwn-la-guia-definitiva
 
 
 # Capturas de pantalla
-![AutoRDPwn1_es](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn1_es.PNG)
-![AutoRDPwn2_es](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn2_es.PNG)
+![AutoRDPwn1_es](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn1_es.png)
+![AutoRDPwn2_es](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn2_es.png)
 
 
 # Licencia
@@ -78,7 +78,9 @@ Este proyecto está licenciando bajo la licencia GNU 3.0 - ver el fichero LICENS
 
 
 # Créditos y Agradecimientos
-Este framework utiliza los siguientes scripts y herramientas:
+Este framework ha sido creado y diseñado desde cero por Joel Gámez Molina // @JoelGMSec
+
+Algunos módulos utilizan código, scripts y herramientas de terceros, particularmente:
 
 • Chachi-Enumerator de **Luis Vacas** -> https://github.com/Hackplayers/PsCabesha-tools
 
@@ -175,8 +177,8 @@ https://darkbyte.net/autordpwn-la-guia-definitiva
 
 
 # Screenshots
-![AutoRDPwn1_en](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn1_en.PNG)
-![AutoRDPwn2_en](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn2_en.PNG)
+![AutoRDPwn1_en](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn1_en.png)
+![AutoRDPwn2_en](https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Screenshots/AutoRDPwn2_en.png)
 
 
 # License
@@ -184,7 +186,9 @@ This project is licensed under the GNU 3.0 license - see the LICENSE file for mo
 
 
 # Credits and Acknowledgments
-This framework uses the following scripts and tools:
+This framework has been created and designed from scratch by Joel Gámez Molina // @JoelGMSec
+
+Some modules use third-party code, scripts, and tools, particularly:
 
 • Chachi-Enumerator by **Luis Vacas** -> https://github.com/Hackplayers/PsCabesha-tools
 
