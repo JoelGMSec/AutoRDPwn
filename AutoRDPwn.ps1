@@ -542,8 +542,8 @@ function Remove-Exclusions {
    $RDP = New-PSSession -Computer $computer -Authentication Negotiate } ; if($user) { $credential = New-Object System.Management.Automation.PSCredential ( $user, $password )
    $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; Start-Sleep -milliseconds 500 } until ($session -or $i -eq 10) ; if ($session){ $attack = "true"
 
-        do { $seeshadow = "see", "ver", "regarder", "siehe", "vedere", "увидеть" ; $controlshadow = "control", "controlar", "contrôle", "kontrolle", "controllo", "контроль" ; $stickyshadow = "sticky"
-        $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $inputoption = "sticky" } if($shadowoption -like '-shadow') { $inputoption=$args[7] } else {
+        do { $seeshadow = "see", "ver", "regarder", "siehe", "vedere", "увидеть" ; $controlshadow = "control", "controlar", "contrôle", "kontrolle", "controllo", "контроль"
+        $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $stickyshadow = "sticky" ; $inputoption = "sticky" } if($shadowoption -like '-shadow') { $inputoption=$args[7] } else {
         if($hash){ $user = $null } ; Write-Host ; & $question ; Write-Host "$txt29" -NoNewLine -ForegroundColor Gray ; $inputoption = $Host.UI.ReadLine()}
 
         if($inputoption -in $seeshadow) { $control = "false" ; Write-Host
